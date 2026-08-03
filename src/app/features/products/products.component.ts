@@ -27,13 +27,10 @@ export class ProductsComponent implements OnInit {
   selectedCategory = 'all';
   selectedSubCategory = '';
   selectedChildCategory = '';
-  selectedWillow = '';
-  selectedLevel = '';
   selectedSort = 'popularity';
   minPrice = 0;
   maxPrice = 50000;
   priceRange = 50000;
-  inStockOnly = false;
   showFilters = true;
   viewMode: 'grid' | 'list' = 'grid';
   isLoading = true;
@@ -62,9 +59,6 @@ export class ProductsComponent implements OnInit {
     { value: 'discount', label: 'Biggest Discount' },
   ];
 
-  levels = ['Beginner', 'Intermediate', 'Advanced', 'Professional', 'Junior'];
-  willowTypes = ['English Willow', 'Kashmir Willow'];
-
   ngOnInit(): void {
     setTimeout(() => { this.isLoading = false; }, 600);
     this.allProducts = this.productSvc.getAll();
@@ -92,9 +86,6 @@ export class ProductsComponent implements OnInit {
       childCategory: this.selectedChildCategory || undefined,
       minPrice: this.minPrice,
       maxPrice: this.priceRange,
-      willowType: this.selectedWillow || undefined,
-      playerLevel: this.selectedLevel || undefined,
-      inStock: this.inStockOnly ? true : undefined,
       sortBy: this.selectedSort,
     });
 
@@ -126,12 +117,9 @@ export class ProductsComponent implements OnInit {
     this.selectedCategory = 'all';
     this.selectedSubCategory = '';
     this.selectedChildCategory = '';
-    this.selectedWillow = '';
-    this.selectedLevel = '';
     this.selectedSort = 'popularity';
     this.minPrice = 0;
     this.priceRange = 50000;
-    this.inStockOnly = false;
     this.applyFilters();
   }
 

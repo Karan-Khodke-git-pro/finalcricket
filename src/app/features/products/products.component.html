@@ -45,51 +45,6 @@
                  [(ngModel)]="priceRange" (ngModelChange)="applyFilters()">
         </div>
 
-        <!-- Willow Type -->
-        <div class="filter-group">
-          <h4>Willow Type</h4>
-          <div *ngFor="let w of willowTypes" class="filter-option">
-            <label>
-              <input type="radio" name="willow" [value]="w"
-                     [(ngModel)]="selectedWillow" (change)="applyFilters()">
-              <span>{{w}}</span>
-            </label>
-          </div>
-          <div class="filter-option">
-            <label>
-              <input type="radio" name="willow" value=""
-                     [(ngModel)]="selectedWillow" (change)="applyFilters()">
-              <span>All Types</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- Player Level -->
-        <div class="filter-group">
-          <h4>Player Level</h4>
-          <div *ngFor="let level of levels" class="filter-option">
-            <label>
-              <input type="radio" name="level" [value]="level"
-                     [(ngModel)]="selectedLevel" (change)="applyFilters()">
-              <span>{{level}}</span>
-            </label>
-          </div>
-          <div class="filter-option">
-            <label>
-              <input type="radio" name="level" value=""
-                     [(ngModel)]="selectedLevel" (change)="applyFilters()">
-              <span>All Levels</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- In Stock -->
-        <div class="filter-group">
-          <label class="toggle-filter">
-            <input type="checkbox" [(ngModel)]="inStockOnly" (change)="applyFilters()">
-            <span>In Stock Only</span>
-          </label>
-        </div>
       </aside>
 
       <!-- ── Products Main ── -->
