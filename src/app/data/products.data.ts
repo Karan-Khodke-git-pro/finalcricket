@@ -1,11 +1,10 @@
 import { Product } from '../core/models/product.model';
 import { BAT_IMAGES, productImages } from './images.data';
-import { EXTRA_PRODUCTS } from './extra-products.data';
 
 // All 11 local images cycling
 const b = (n: number) => BAT_IMAGES[n % BAT_IMAGES.length];
 
-const CORE_PRODUCTS: Product[] = [
+export const PRODUCTS: Product[] = [
   /* â”€â”€â”€ ENGLISH WILLOW â€“ PROFESSIONAL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   {
     id: 'p001',
@@ -1336,8 +1335,8 @@ const CORE_PRODUCTS: Product[] = [
   /* â”€â”€â”€ MORE BATS (filling 60) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   ...Array.from({ length: 38 }, (_, i) => {
     const idx = i + 14;
-    const categories = ['english-willow', 'kashmir-willow', 'tennis-ball', 'junior', 'accessories'];
-    const cat = categories[i % 5];
+    const categories = ['popular-willow', 'kashmir-willow', 'tennis-balls', 'junior-bats', 'accessories', 'rainy-season', 'bat-covers'];
+    const cat = categories[i % 7];
     const badges: Array<'New' | 'Best Seller' | 'Hot' | 'Sale' | 'Limited' | 'Trending' | 'Premium' | 'Championship'> =
       ['New', 'Best Seller', 'Hot', 'Sale', 'Trending', 'Premium'];
     const levels: Array<'Beginner' | 'Intermediate' | 'Advanced' | 'Professional' | 'Junior'> =
@@ -1345,11 +1344,11 @@ const CORE_PRODUCTS: Product[] = [
     const sweet: Array<'Low' | 'Mid' | 'High' | 'Extended Mid'> = ['Low', 'Mid', 'High', 'Extended Mid'];
     const handles: Array<'Oval' | 'Round' | 'Semi-Oval'> = ['Oval', 'Round', 'Semi-Oval'];
     const balance: Array<'Light' | 'Medium' | 'Heavy' | 'End Loaded' | 'Balanced'> = ['Light', 'Medium', 'Heavy', 'End Loaded', 'Balanced'];
-    const willow: Array<'English Willow' | 'Kashmir Willow'> = cat === 'english-willow' ? ['English Willow'] : ['Kashmir Willow'];
+    const willow: Array<'English Willow' | 'Kashmir Willow'> = cat === 'kashmir-willow' ? ['Kashmir Willow'] : ['English Willow'];
 
     const price = cat === 'accessories' ? 200 + idx * 50 :
-                  cat === 'tennis-ball' ? 1000 + idx * 100 :
-                  cat === 'junior' ? 2000 + idx * 200 :
+                  cat === 'tennis-balls' ? 1000 + idx * 100 :
+                  cat === 'junior-bats' ? 2000 + idx * 200 :
                   cat === 'kashmir-willow' ? 2500 + idx * 300 :
                   5000 + idx * 500;
 
@@ -1367,7 +1366,12 @@ const CORE_PRODUCTS: Product[] = [
       slug: `${names[i % 20].toLowerCase().replace(/ /g, '-')}-${idx}`,
       brand: 'SG Cricket',
       category: cat,
-      subCategory: ['professional', 'advanced', 'intermediate'][i % 3],
+      subCategory: cat === 'kashmir-willow'
+        ? (i % 2 === 0 ? 'single-blade' : 'double-blade')
+        : cat === 'accessories'
+          ? ['batting-gloves', 'uniform', 'bat-grips', 'threads'][i % 4]
+          : undefined,
+      childCategory: cat === 'kashmir-willow' ? (i % 4 < 2 ? 'full-cane' : 'half-cane') : undefined,
       sku: `SG-${cat.substring(0, 2).toUpperCase()}-${String(idx).padStart(3, '0')}`,
       price,
       originalPrice: Math.round(price * 1.15),
@@ -1425,5 +1429,3 @@ export const getLimitedEdition = () => PRODUCTS.filter(p => p.isLimitedEdition).
 export const getProductsByCategory = (cat: string) => PRODUCTS.filter(p => p.category === cat);
 export const getProductById = (id: string) => PRODUCTS.find(p => p.id === id);
 export const getProductBySlug = (slug: string) => PRODUCTS.find(p => p.slug === slug);
-
-export const PRODUCTS: Product[] = [...CORE_PRODUCTS, ...EXTRA_PRODUCTS];
