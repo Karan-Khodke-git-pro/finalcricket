@@ -1,0 +1,314 @@
+<!-- ═══════════════════════════════════════════ HERO ══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-slider">
+    <div *ngFor="let slide of heroSlides; let i = index"
+         class="hero-slide"
+         [class.active]="i === currentHeroSlide">
+      <div class="slide-bg">
+        <img [src]="slide.image" [alt]="slide.title" loading="eager">
+        <div class="slide-overlay"></div>
+      </div>
+      <div class="slide-content">
+        <div class="container">
+          <div class="slide-text">
+            <span class="slide-badge">
+              <i class="fas fa-cricket-bat-ball"></i> {{slide.badge}}
+            </span>
+            <h1 class="slide-title">{{slide.title}}</h1>
+            <p class="slide-sub">{{slide.subtitle}}</p>
+            <div class="slide-ctas">
+              <a [routerLink]="slide.link1" class="btn btn-accent btn-lg">
+                {{slide.cta1}} <i class="fas fa-arrow-right"></i>
+              </a>
+              <a [routerLink]="slide.link2" class="btn btn-outline-white btn-lg">
+                {{slide.cta2}}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slider Controls -->
+  <button class="hero-arrow prev" (click)="prevHeroSlide()"><i class="fas fa-chevron-left"></i></button>
+  <button class="hero-arrow next" (click)="nextHeroSlide()"><i class="fas fa-chevron-right"></i></button>
+  <div class="hero-dots">
+    <button *ngFor="let s of heroSlides; let i = index"
+            [class.active]="i === currentHeroSlide"
+            (click)="setHeroSlide(i)"></button>
+  </div>
+
+  <!-- Hero Stats Bar -->
+  <div class="hero-stats-bar">
+    <div class="container">
+      <div class="hero-stats-grid">
+        <div class="stat-item" *ngFor="let s of stats.slice(0,4)">
+          <span class="stat-value">{{s.value}}</span>
+          <span class="stat-label">{{s.label}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ PROMO CAROUSEL ════════════════════════════════════════ -->
+<section class="section-sm promo-section">
+  <div class="container">
+    <div class="promo-grid">
+      <a *ngFor="let promo of promos" [routerLink]="promo.link" class="promo-card" [style.background]="promo.img ? '' : promo.bg">
+        <div class="promo-img">
+          <img [src]="promo.img" [alt]="promo.title">
+          <div class="promo-overlay" [style.background]="promo.bg"></div>
+        </div>
+        <div class="promo-content">
+          <span class="promo-tag">{{promo.tag}}</span>
+          <h3>{{promo.title}}</h3>
+          <p>{{promo.sub}}</p>
+          <span class="promo-cta">Shop Now <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ CATEGORIES ══════════════════════════════════════════ -->
+<section class="section bg-alt category-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="overline">Browse By Type</span>
+      <h2>Shop by Category</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="cat-grid">
+      <a *ngFor="let cat of categories" [routerLink]="['/categories', cat.slug]" class="cat-card">
+        <div class="cat-img">
+          <img [src]="cat.image" [alt]="cat.name">
+          <div class="cat-overlay"></div>
+        </div>
+        <div class="cat-info">
+          <h3>{{cat.name}}</h3>
+          <span>{{cat.productCount}} Products</span>
+        </div>
+      </a>
+    </div>
+    <div class="text-center" style="margin-top: 2rem">
+      <a routerLink="/categories" class="btn btn-outline">View All Categories <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════════════════ PRODUCT TABS ══════════════════════════════════════════ -->
+<section class="section products-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="overline">Our Collection</span>
+      <h2>Explore Our Bats</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="tab-list">
+      <button class="tab" [class.active]="activeTab==='featured'" (click)="activeTab='featured'">Featured</button>
+      <button class="tab" [class.active]="activeTab==='bestSellers'" (click)="activeTab='bestSellers'">Best Sellers</button>
+      <button class="tab" [class.active]="activeTab==='newArrivals'" (click)="activeTab='newArrivals'">New Arrivals</button>
+      <button class="tab" [class.active]="activeTab==='trending'" (click)="activeTab='trending'">Trending</button>
+    </div>
+    <div class="product-grid" style="margin-top:2rem">
+      <app-product-card *ngFor="let p of activeProducts" [product]="p"></app-product-card>
+    </div>
+    <div class="text-center" style="margin-top: 2.5rem">
+      <a routerLink="/products" class="btn btn-primary btn-lg">View All Products <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ LIMITED EDITION ══════════════════════════════════════════ -->
+<section class="section limited-section">
+  <div class="container">
+    <div class="limited-inner">
+      <div class="limited-text">
+        <span class="overline">Exclusive</span>
+        <h2>Limited Edition<br><span class="text-gold">Collection</span></h2>
+        <p>Rare, numbered, and crafted for the discerning cricketer. Each piece is a unique masterwork of the bat-maker's art.</p>
+        <div class="limited-features">
+          <div class="feat"><i class="fas fa-certificate"></i> Certificate of Authenticity</div>
+          <div class="feat"><i class="fas fa-hashtag"></i> Individually Numbered</div>
+          <div class="feat"><i class="fas fa-box"></i> Premium Display Case</div>
+        </div>
+        <a routerLink="/categories/limited-edition" class="btn btn-accent btn-lg">
+          Explore Collection <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      <div class="limited-products">
+        <app-product-card *ngFor="let p of limitedEdition.slice(0,2)" [product]="p"></app-product-card>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ WHY CHOOSE US ══════════════════════════════════════════ -->
+<section class="section bg-alt why-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="overline">Our Promise</span>
+      <h2>Why Choose SG Cricket?</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="why-grid">
+      <div *ngFor="let w of whyChooseUs" class="why-card">
+        <div class="why-icon">
+          <i [class]="'fas ' + w.icon"></i>
+        </div>
+        <h3>{{w.title}}</h3>
+        <p>{{w.desc}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ MANUFACTURING PROCESS ═════════════════════════════════════════ -->
+<section class="section manufacturing-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="overline">Craftsmanship</span>
+      <h2>The Art of Bat Making</h2>
+      <p>From raw willow to championship-ready bat — our meticulous process ensures perfection at every step.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="mfg-steps">
+      <div *ngFor="let step of manufacturingSteps; let i = index" class="mfg-step">
+        <div class="step-number">{{step.step}}</div>
+        <div class="step-content">
+          <h3>{{step.title}}</h3>
+          <p>{{step.desc}}</p>
+        </div>
+        <div class="step-connector" *ngIf="i < manufacturingSteps.length - 1"></div>
+      </div>
+    </div>
+    <div class="mfg-cta text-center">
+      <a routerLink="/about" class="btn btn-primary">
+        <i class="fas fa-play"></i> Learn About Our Process
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ TESTIMONIALS ══════════════════════════════════════════════ -->
+<section class="section bg-alt testimonial-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="overline">Customer Reviews</span>
+      <h2>What Champions Say</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="testimonials-slider">
+      <div class="testimonials-track">
+        <div *ngFor="let t of testimonials; let i = index" class="testimonial-card" [class.active]="i === currentTestimonial">
+          <div class="t-stars">
+            <i *ngFor="let star of getStars(t.rating)" [class]="star"></i>
+          </div>
+          <blockquote>"{{t.comment}}"</blockquote>
+          <div class="t-author">
+            <img [src]="t.avatar" [alt]="t.name">
+            <div>
+              <strong>{{t.name}}</strong>
+              <span>{{t.role}}<span *ngIf="t.team">, {{t.team}}</span></span>
+              <div *ngIf="t.product" class="t-product">Reviewed: {{t.product}}</div>
+            </div>
+            <div class="verified" *ngIf="t.verified">
+              <i class="fas fa-check-circle"></i> Verified
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="t-controls">
+        <button (click)="prevTestimonial()"><i class="fas fa-chevron-left"></i></button>
+        <div class="t-dots">
+          <button *ngFor="let t of testimonials; let i = index"
+                  [class.active]="i === currentTestimonial"
+                  (click)="currentTestimonial = i"></button>
+        </div>
+        <button (click)="nextTestimonial()"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ GALLERY ═════════════════════════════════════════════ -->
+<section class="section gallery-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="overline">Our World</span>
+      <h2>Gallery</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="gallery-grid">
+      <div *ngFor="let img of gallery; let i = index" class="gallery-item" [class]="'item-'+i">
+        <img [src]="img" alt="SG Cricket Gallery">
+        <div class="gallery-overlay">
+          <i class="fas fa-expand"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ BEST SELLERS ROW ═══════════════════════════════════════ -->
+<section class="section bg-alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="overline">Top Picks</span>
+      <h2>Best Sellers</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="product-grid">
+      <app-product-card *ngFor="let p of bestSellers.slice(0,4)" [product]="p"></app-product-card>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════════════════════ FAQs ══════════════════════════════════════════════ -->
+<section class="section faq-section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="overline">Help Center</span>
+      <h2>Frequently Asked Questions</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="faq-grid">
+      <div *ngFor="let faq of faqs; let i = index" class="accordion-item">
+        <div class="accordion-header" [class.open]="openFaq === i" (click)="toggleFaq(i)">
+          <span>{{faq.question}}</span>
+          <i class="fas fa-chevron-down icon"></i>
+        </div>
+        <div class="accordion-body" *ngIf="openFaq === i">
+          <p>{{faq.answer}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center" style="margin-top: 2rem">
+      <a routerLink="/contact" class="btn btn-outline">Have More Questions? <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ BRAND STORY STRIP ════════════════════════════════════════════ -->
+<section class="brand-strip">
+  <div class="container">
+    <div class="strip-inner">
+      <div class="strip-text">
+        <span class="overline">Our Story</span>
+        <h2>Crafting Champions<br>Since <span class="text-gold">1987</span></h2>
+        <p>What started in a small workshop in Jalandhar has grown into India's most trusted cricket bat brand. Three generations of craftsmanship, innovation, and passion for the game.</p>
+        <a routerLink="/about" class="btn btn-accent">
+          <i class="fas fa-book-open"></i> Read Our Story
+        </a>
+      </div>
+      <div class="strip-stats">
+        <div *ngFor="let s of stats" class="strip-stat">
+          <span class="sv">{{s.value}}</span>
+          <span class="sl">{{s.label}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

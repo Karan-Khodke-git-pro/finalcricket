@@ -1,0 +1,117 @@
+<div class="payment-page">
+  <div class="container">
+    <div class="payment-card">
+      <div class="payment-header">
+        <div class="secure-lock"><i class="fas fa-lock"></i></div>
+        <h1>Secure Payment</h1>
+        <p>Your payment information is encrypted and secure</p>
+      </div>
+
+      <div class="payment-layout">
+        <!-- Methods -->
+        <div class="methods-panel">
+          <h3>Payment Method</h3>
+          <div class="method-list">
+            <label *ngFor="let m of methods" class="method-item" [class.active]="selectedMethod === m.id">
+              <input type="radio" [value]="m.id" [(ngModel)]="selectedMethod">
+              <i class="fas" [class]="m.icon"></i>
+              <span>{{m.label}}</span>
+              <i class="fas fa-chevron-right ml-auto" style="margin-left:auto;font-size:0.7rem;color:var(--text-muted)"></i>
+            </label>
+          </div>
+        </div>
+
+        <!-- Payment Form -->
+        <div class="payment-form-panel">
+          <!-- UPI -->
+          <div *ngIf="selectedMethod==='upi'" class="pay-form">
+            <h4>Pay via UPI</h4>
+            <div class="upi-logos">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/100px-Google_Pay_Logo.svg.png" alt="GPay">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/PhonePe_Logo.svg/100px-PhonePe_Logo.svg.png" alt="PhonePe">
+              <span>BHIM</span>
+            </div>
+            <div class="form-group">
+              <label>UPI ID</label>
+              <input type="text" [(ngModel)]="upiId" placeholder="example@upi">
+            </div>
+            <p class="or-divider">— OR scan QR —</p>
+            <div class="qr-placeholder">
+              <i class="fas fa-qrcode"></i>
+              <span>QR Code</span>
+            </div>
+          </div>
+
+          <!-- Card -->
+          <div *ngIf="selectedMethod==='card'" class="pay-form">
+            <h4>Card Details</h4>
+            <div class="form-group">
+              <label>Card Number</label>
+              <input type="text" [(ngModel)]="cardDetails.number" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
+            </div>
+            <div class="form-group">
+              <label>Cardholder Name</label>
+              <input type="text" [(ngModel)]="cardDetails.name" placeholder="Name on card">
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label>Expiry</label>
+                <input type="text" [(ngModel)]="cardDetails.expiry" placeholder="MM/YY">
+              </div>
+              <div class="form-group">
+                <label>CVV</label>
+                <input type="password" [(ngModel)]="cardDetails.cvv" placeholder="•••" maxlength="3">
+              </div>
+            </div>
+          </div>
+
+          <!-- Net Banking -->
+          <div *ngIf="selectedMethod==='netbanking'" class="pay-form">
+            <h4>Select Your Bank</h4>
+            <div class="bank-list">
+              <label *ngFor="let b of banks" class="bank-item" [class.selected]="selectedBank===b">
+                <input type="radio" [value]="b" [(ngModel)]="selectedBank">
+                <i class="fas fa-university"></i>
+                <span>{{b}}</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Wallet -->
+          <div *ngIf="selectedMethod==='wallet'" class="pay-form">
+            <h4>Select Wallet</h4>
+            <p>You will be redirected to your wallet app to complete the payment.</p>
+          </div>
+
+          <!-- COD -->
+          <div *ngIf="selectedMethod==='cod'" class="pay-form">
+            <div class="cod-info">
+              <i class="fas fa-truck"></i>
+              <div>
+                <h4>Cash on Delivery</h4>
+                <p>Pay ₹{{total | number}} when your order arrives. Available up to ₹10,000.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Amount -->
+          <div class="pay-amount">
+            <span>Amount to Pay:</span>
+            <span class="amount">₹{{total | number}}</span>
+          </div>
+
+          <button class="pay-btn" (click)="pay()" [disabled]="isProcessing">
+            <span *ngIf="!isProcessing">
+              <i class="fas fa-lock"></i> Pay Now · ₹{{total | number}}
+            </span>
+            <span *ngIf="isProcessing">
+              <i class="fas fa-spinner fa-spin"></i> Processing...
+            </span>
+          </button>
+
+          <p class="secure-text"><i class="fas fa-shield-alt"></i> 256-bit SSL Encrypted. Your details are safe with us.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

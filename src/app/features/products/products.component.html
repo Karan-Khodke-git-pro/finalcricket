@@ -1,0 +1,174 @@
+<!-- Breadcrumb -->
+<div class="page-banner">
+  <div class="container">
+    <div class="breadcrumb">
+      <a routerLink="/">Home</a>
+      <span class="separator"><i class="fas fa-chevron-right"></i></span>
+      <span class="current">All Products</span>
+    </div>
+    <h1>Shop Cricket Bats</h1>
+    <p>{{filteredProducts.length}} products found</p>
+  </div>
+</div>
+
+<div class="products-page">
+  <div class="container">
+    <div class="page-layout">
+
+      <!-- ── Sidebar Filters ── -->
+      <aside class="sidebar" [class.open]="showFilters">
+        <div class="sidebar-header">
+          <h3><i class="fas fa-sliders-h"></i> Filters</h3>
+          <button (click)="resetFilters()" class="clear-btn">Clear All</button>
+        </div>
+
+        <!-- Category -->
+        <div class="filter-group">
+          <h4>Category</h4>
+          <div *ngFor="let cat of categories" class="filter-option">
+            <label>
+              <input type="radio" name="category" [value]="cat.value"
+                     [(ngModel)]="selectedCategory" (change)="applyFilters()">
+              <span>{{cat.label}}</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Price Range -->
+        <div class="filter-group">
+          <h4>Price Range</h4>
+          <div class="price-inputs">
+            <span>₹{{minPrice | number}}</span>
+            <span>₹{{priceRange | number}}</span>
+          </div>
+          <input type="range" [min]="minPrice" max="50000" step="500"
+                 [(ngModel)]="priceRange" (ngModelChange)="applyFilters()">
+        </div>
+
+        <!-- Willow Type -->
+        <div class="filter-group">
+          <h4>Willow Type</h4>
+          <div *ngFor="let w of willowTypes" class="filter-option">
+            <label>
+              <input type="radio" name="willow" [value]="w"
+                     [(ngModel)]="selectedWillow" (change)="applyFilters()">
+              <span>{{w}}</span>
+            </label>
+          </div>
+          <div class="filter-option">
+            <label>
+              <input type="radio" name="willow" value=""
+                     [(ngModel)]="selectedWillow" (change)="applyFilters()">
+              <span>All Types</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Player Level -->
+        <div class="filter-group">
+          <h4>Player Level</h4>
+          <div *ngFor="let level of levels" class="filter-option">
+            <label>
+              <input type="radio" name="level" [value]="level"
+                     [(ngModel)]="selectedLevel" (change)="applyFilters()">
+              <span>{{level}}</span>
+            </label>
+          </div>
+          <div class="filter-option">
+            <label>
+              <input type="radio" name="level" value=""
+                     [(ngModel)]="selectedLevel" (change)="applyFilters()">
+              <span>All Levels</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- In Stock -->
+        <div class="filter-group">
+          <label class="toggle-filter">
+            <input type="checkbox" [(ngModel)]="inStockOnly" (change)="applyFilters()">
+            <span>In Stock Only</span>
+          </label>
+        </div>
+      </aside>
+
+      <!-- ── Products Main ── -->
+      <div class="products-main">
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <!-- Search -->
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" [(ngModel)]="searchQuery"
+                   (ngModelChange)="applyFilters()"
+                   placeholder="Search products...">
+          </div>
+
+          <div class="toolbar-right">
+            <!-- Sort -->
+            <select [(ngModel)]="selectedSort" (ngModelChange)="applyFilters()" class="sort-select">
+              <option *ngFor="let opt of sortOptions" [value]="opt.value">{{opt.label}}</option>
+            </select>
+
+            <!-- View Toggle -->
+            <div class="view-toggle">
+              <button [class.active]="viewMode==='grid'" (click)="viewMode='grid'">
+                <i class="fas fa-th"></i>
+              </button>
+              <button [class.active]="viewMode==='list'" (click)="viewMode='list'">
+                <i class="fas fa-list"></i>
+              </button>
+            </div>
+
+            <!-- Mobile Filter Toggle -->
+            <button class="filter-toggle hide-desktop" (click)="showFilters=!showFilters">
+              <i class="fas fa-sliders-h"></i> Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        <div *ngIf="isLoading" [class]="viewMode==='grid' ? 'product-grid' : 'product-list'">
+          <div *ngFor="let s of skeletonArray" class="skeleton-card">
+            <div class="skeleton" style="aspect-ratio:4/5"></div>
+            <div style="padding:1rem">
+              <div class="skeleton" style="height:16px;margin-bottom:8px"></div>
+              <div class="skeleton" style="height:14px;width:70%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!isLoading && filteredProducts.length === 0" class="empty-state">
+          <i class="fas fa-search"></i>
+          <h3>No products found</h3>
+          <p>Try adjusting your filters or search query.</p>
+          <button class="btn btn-primary" (click)="resetFilters()">Clear Filters</button>
+        </div>
+
+        <!-- Products Grid / List -->
+        <div *ngIf="!isLoading && filteredProducts.length > 0"
+             [class]="viewMode==='grid' ? 'product-grid' : 'product-list'">
+          <app-product-card *ngFor="let p of displayedProducts"
+                            [product]="p"
+                            [variant]="viewMode==='list' ? 'horizontal' : 'default'">
+          </app-product-card>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" *ngIf="totalPages > 1 && !isLoading">
+          <button (click)="goToPage(currentPage-1)" [disabled]="currentPage===1">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button *ngFor="let p of pageNumbers"
+                  [class.active]="p === currentPage"
+                  (click)="goToPage(p)">{{p}}</button>
+          <button (click)="goToPage(currentPage+1)" [disabled]="currentPage===totalPages">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

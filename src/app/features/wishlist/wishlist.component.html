@@ -1,0 +1,44 @@
+<div class="page-banner">
+  <div class="container">
+    <div class="breadcrumb">
+      <a routerLink="/">Home</a><span class="separator"><i class="fas fa-chevron-right"></i></span>
+      <span class="current">Wishlist</span>
+    </div>
+    <h1>My Wishlist</h1>
+    <p>Your saved cricket bats ({{(wishlistSvc.items$ | async)?.length || 0}} items)</p>
+  </div>
+</div>
+
+<div class="wishlist-page section">
+  <div class="container">
+    <ng-container *ngIf="(wishlistSvc.items$ | async) as items">
+      <!-- Empty State -->
+      <div *ngIf="items.length === 0" class="empty-wishlist">
+        <div class="empty-icon"><i class="fas fa-heart"></i></div>
+        <h2>Your Wishlist is Empty</h2>
+        <p>Save cricket bats you love to your wishlist and shop them anytime.</p>
+        <a routerLink="/products" class="btn btn-accent btn-lg">
+          <i class="fas fa-shopping-bag"></i> Browse Bats
+        </a>
+      </div>
+
+      <!-- Items -->
+      <div *ngIf="items.length > 0">
+        <div class="wishlist-toolbar">
+          <span>{{items.length}} item(s) saved</span>
+          <button class="btn btn-outline btn-sm" (click)="clearAll()">
+            <i class="fas fa-trash"></i> Clear All
+          </button>
+        </div>
+        <div class="products-grid">
+          <div *ngFor="let item of items" class="wishlist-product-wrap">
+            <app-product-card [product]="item.product"></app-product-card>
+            <button class="move-to-cart-btn" (click)="moveToCart(item)">
+              <i class="fas fa-shopping-cart"></i> Move to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

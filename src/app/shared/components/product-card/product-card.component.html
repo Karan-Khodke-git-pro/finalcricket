@@ -1,0 +1,87 @@
+<div class="product-card" [class]="'variant-'+variant" (mouseenter)="hovered=true" (mouseleave)="hovered=false">
+  <a [routerLink]="['/products', product.slug]" class="card-link" (click)="trackView()">
+
+    <!-- Image Container -->
+    <div class="card-img-wrap">
+      <img [src]="hovered && product.images[1] ? product.images[1] : product.thumbnail"
+           [alt]="product.name"
+           class="product-img"
+           loading="lazy">
+
+      <!-- Badges -->
+      <div class="badges">
+        <span *ngIf="product.badge" class="badge" [class]="getBadgeClass(product.badge)">
+          {{product.badge}}
+        </span>
+        <span *ngIf="product.discount > 0" class="badge badge-discount">
+          -{{product.discount}}%
+        </span>
+      </div>
+
+      <!-- Out of Stock Overlay -->
+      <div class="out-of-stock" *ngIf="!product.inStock">
+        <span>Out of Stock</span>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="card-actions" [class.visible]="hovered">
+        <button class="action-btn" (click)="onToggleWishlist($event)"
+                [class.active]="isWishlisted" title="Add to Wishlist">
+          <i [class]="isWishlisted ? 'fas fa-heart' : 'far fa-heart'"></i>
+        </button>
+        <button class="action-btn" (click)="onQuickView($event)" title="Quick View">
+          <i class="fas fa-eye"></i>
+        </button>
+        <button class="action-btn" (click)="onAddToCompare($event)"
+                [class.active]="isCompared" title="Add to Compare">
+          <i class="fas fa-code-compare"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Card Info -->
+    <div class="card-info">
+      <p class="category">{{product.category | categoryLabel}}</p>
+      <h3 class="name">{{product.name}}</h3>
+
+      <!-- Spec Chips -->
+      <div class="specs">
+        <span class="spec-chip">{{product.specifications.willowType.split(' ')[0]}} Willow</span>
+        <span class="spec-chip">{{product.specifications.grade}}</span>
+        <span class="spec-chip" *ngIf="product.specifications.playerLevel !== 'Beginner'">
+          {{product.specifications.playerLevel}}
+        </span>
+      </div>
+
+      <!-- Rating -->
+      <div class="rating-row">
+        <i class="fas fa-star" style="color: var(--accent); font-size: 0.85rem;"></i>
+        <span class="rating-val">{{product.rating}}</span>
+        <span class="review-count">({{product.reviewCount | number}})</span>
+      </div>
+
+      <!-- Price -->
+      <div class="price-row">
+        <span class="price">{{formatPrice(product.price)}}</span>
+        <span class="original-price" *ngIf="product.originalPrice > product.price">
+          {{formatPrice(product.originalPrice)}}
+        </span>
+        <span class="savings" *ngIf="discountAmount > 0">
+          Save {{formatPrice(discountAmount)}}
+        </span>
+      </div>
+    </div>
+  </a>
+
+  <!-- Add to Cart -->
+  <div class="card-footer">
+    <button class="add-to-cart"
+            [class.in-cart]="isInCart"
+            [class.adding]="addingToCart"
+            [disabled]="!product.inStock"
+            (click)="onAddToCart($event)">
+      <i [class]="addingToCart ? 'fas fa-check' : isInCart ? 'fas fa-shopping-bag' : 'fas fa-cart-plus'"></i>
+      <span>{{addingToCart ? 'Added!' : isInCart ? 'In Cart' : product.inStock ? 'Add to Cart' : 'Out of Stock'}}</span>
+    </button>
+  </div>
+</div>

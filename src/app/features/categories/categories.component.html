@@ -1,0 +1,87 @@
+<!-- All Categories View -->
+<div *ngIf="!selectedCategory" class="categories-page">
+  <div class="page-banner">
+    <div class="container">
+      <div class="breadcrumb">
+        <a routerLink="/">Home</a>
+        <span class="separator"><i class="fas fa-chevron-right"></i></span>
+        <span class="current">Categories</span>
+      </div>
+      <h1>Shop by Category</h1>
+      <p>Find the perfect bat for your style of play</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container">
+      <div class="all-categories-grid">
+        <a *ngFor="let cat of categories" [routerLink]="['/categories', cat.slug]" class="cat-full-card">
+          <div class="card-img">
+            <img [src]="cat.image" [alt]="cat.name">
+            <div class="card-overlay"></div>
+          </div>
+          <div class="card-body">
+            <h2>{{cat.name}}</h2>
+            <p>{{cat.description}}</p>
+            <div class="cat-meta">
+              <span><i class="fas fa-boxes-stacked"></i> {{cat.productCount}} Products</span>
+              <span class="shop-link">Shop Now <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Single Category View -->
+<div *ngIf="selectedCategory" class="category-detail-page">
+  <div class="category-banner" [style.backgroundImage]="'url('+selectedCategory.banner+')'">
+    <div class="banner-overlay"></div>
+    <div class="container banner-content">
+      <div class="breadcrumb">
+        <a routerLink="/">Home</a>
+        <span class="separator"><i class="fas fa-chevron-right"></i></span>
+        <a routerLink="/categories">Categories</a>
+        <span class="separator"><i class="fas fa-chevron-right"></i></span>
+        <span class="current">{{selectedCategory.name}}</span>
+      </div>
+      <h1>{{selectedCategory.name}}</h1>
+      <p>{{selectedCategory.description}}</p>
+      <div class="banner-meta">
+        <span><i class="fas fa-boxes-stacked"></i> {{selectedCategory.productCount}} Products</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="overline">{{selectedCategory.name}}</span>
+        <h2>Featured Products</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="product-grid">
+        <app-product-card *ngFor="let p of products" [product]="p"></app-product-card>
+      </div>
+      <div class="text-center" style="margin-top:2rem">
+        <a [routerLink]="['/products']" [queryParams]="{category: selectedCategory.slug}" class="btn btn-primary btn-lg">
+          View All {{selectedCategory.name}} Products <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Other Categories -->
+  <div class="section bg-alt">
+    <div class="container">
+      <h3 style="margin-bottom:1.5rem">Browse Other Categories</h3>
+      <div class="other-cats">
+        <a *ngFor="let cat of categories" [routerLink]="['/categories', cat.slug]"
+           class="other-cat" [class.active]="cat.slug === selectedCategory.slug">
+          <span>{{cat.name}}</span>
+          <small>{{cat.productCount}}</small>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

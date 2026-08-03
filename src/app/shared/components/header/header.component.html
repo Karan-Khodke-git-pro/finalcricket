@@ -1,0 +1,145 @@
+<header class="header" [class.scrolled]="isScrolled" [class.mobile-open]="isMobileMenuOpen">
+  <!-- Top Bar -->
+  <div class="topbar hide-mobile">
+    <div class="container">
+      <div class="topbar-left">
+        <span><i class="fas fa-truck"></i> Free shipping on orders above ₹999</span>
+        <span><i class="fas fa-phone"></i> +91 98765 43210</span>
+      </div>
+      <div class="topbar-right">
+        <a routerLink="/about">About Us</a>
+        <a routerLink="/repair">Repair & Service</a>
+        <a routerLink="/contact">Contact</a>
+        <button class="theme-toggle" (click)="themeSvc.toggle()" [title]="isDark ? 'Light Mode' : 'Dark Mode'">
+          <i [class]="isDark ? 'fas fa-sun' : 'fas fa-moon'"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Nav -->
+  <nav class="nav">
+    <div class="container">
+      <!-- Logo -->
+      <a class="logo" routerLink="/">
+        <div class="logo-icon"><i class="fas fa-cricket-bat-ball"></i></div>
+        <div class="logo-text">
+          <span class="logo-brand">SG</span>
+          <span class="logo-sub">Cricket</span>
+        </div>
+      </a>
+
+      <!-- Desktop Menu -->
+      <ul class="nav-menu hide-mobile">
+        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a></li>
+        <li class="has-mega" (mouseenter)="toggleMegaMenu('products')" (mouseleave)="closeMegaMenu()">
+          <a routerLink="/products">Shop <i class="fas fa-chevron-down"></i></a>
+          <div class="mega-menu" *ngIf="megaMenuOpen === 'products'">
+            <div class="mega-grid">
+              <div class="mega-col">
+                <h4>By Willow</h4>
+                <a *ngFor="let cat of categories.slice(0,2)" [routerLink]="['/categories', cat.slug]">
+                  <i class="fas" [class]="'fa-'+cat.icon"></i> {{cat.name}}
+                </a>
+              </div>
+              <div class="mega-col">
+                <h4>By Type</h4>
+                <a *ngFor="let cat of categories.slice(2,5)" [routerLink]="['/categories', cat.slug]">
+                  <i class="fas" [class]="'fa-'+cat.icon"></i> {{cat.name}}
+                </a>
+              </div>
+              <div class="mega-col">
+                <h4>Special</h4>
+                <a *ngFor="let cat of categories.slice(5)" [routerLink]="['/categories', cat.slug]">
+                  <i class="fas" [class]="'fa-'+cat.icon"></i> {{cat.name}}
+                </a>
+              </div>
+              <div class="mega-promo">
+                <div class="promo-card">
+                  <span class="badge badge-accent">Limited Edition</span>
+                  <h3>World Cup 2024 Bat</h3>
+                  <p>Only 100 pieces. Don't miss out!</p>
+                  <a routerLink="/categories/limited-edition" class="btn btn-accent btn-sm">Shop Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a routerLink="/categories">Categories</a></li>
+        <li><a routerLink="/custom-bat">Custom Bat</a></li>
+        <li><a routerLink="/about">About</a></li>
+        <li><a routerLink="/contact">Contact</a></li>
+      </ul>
+
+      <!-- Actions -->
+      <div class="nav-actions">
+        <button class="action-btn" (click)="toggleSearch()" title="Search">
+          <i class="fas fa-search"></i>
+        </button>
+        <a class="action-btn" routerLink="/wishlist" title="Wishlist">
+          <i class="fas fa-heart"></i>
+          <span class="badge-count" *ngIf="wishlistCount">{{wishlistCount}}</span>
+        </a>
+        <a class="action-btn" routerLink="/compare" title="Compare" *ngIf="compareCount">
+          <i class="fas fa-code-compare"></i>
+          <span class="badge-count">{{compareCount}}</span>
+        </a>
+        <a class="action-btn cart-btn" routerLink="/cart" title="Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="badge-count" *ngIf="cartCount">{{cartCount}}</span>
+        </a>
+        <button class="theme-toggle mobile-theme hide-desktop" (click)="themeSvc.toggle()">
+          <i [class]="isDark ? 'fas fa-sun' : 'fas fa-moon'"></i>
+        </button>
+        <button class="hamburger hide-desktop" (click)="toggleMobileMenu()" [class.active]="isMobileMenuOpen">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Search Overlay -->
+  <div class="search-overlay" *ngIf="isSearchOpen" (click)="toggleSearch()">
+    <div class="search-box" (click)="$event.stopPropagation()">
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (ngModelChange)="onSearch()"
+        (keyup.enter)="goToSearch()"
+        placeholder="Search cricket bats, accessories..."
+        autofocus>
+      <button (click)="goToSearch()"><i class="fas fa-search"></i></button>
+      <button class="close-btn" (click)="toggleSearch()"><i class="fas fa-times"></i></button>
+      <div class="search-results" *ngIf="showSearchResults && searchResults.length">
+        <div class="result-item" *ngFor="let p of searchResults" (click)="goToProduct(p)">
+          <img [src]="p.thumbnail" [alt]="p.name">
+          <div>
+            <strong>{{p.name}}</strong>
+            <span>₹{{p.price | number}}</span>
+          </div>
+        </div>
+        <a class="view-all" [routerLink]="['/products']" [queryParams]="{q: searchQuery}" (click)="toggleSearch()">
+          View all results <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      <div class="search-results" *ngIf="showSearchResults && !searchResults.length">
+        <div class="no-results">No products found for "{{searchQuery}}"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu hide-desktop" [class.open]="isMobileMenuOpen">
+    <ul>
+      <li><a routerLink="/" (click)="isMobileMenuOpen=false">Home</a></li>
+      <li><a routerLink="/products" (click)="isMobileMenuOpen=false">Shop All</a></li>
+      <li *ngFor="let cat of categories.slice(0,6)">
+        <a [routerLink]="['/categories', cat.slug]" (click)="isMobileMenuOpen=false">{{cat.name}}</a>
+      </li>
+      <li><a routerLink="/custom-bat" (click)="isMobileMenuOpen=false">Custom Bat</a></li>
+      <li><a routerLink="/about" (click)="isMobileMenuOpen=false">About Us</a></li>
+      <li><a routerLink="/contact" (click)="isMobileMenuOpen=false">Contact</a></li>
+      <li><a routerLink="/repair" (click)="isMobileMenuOpen=false">Repair & Service</a></li>
+    </ul>
+  </div>
+</header>

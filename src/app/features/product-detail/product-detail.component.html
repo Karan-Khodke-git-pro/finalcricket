@@ -1,0 +1,349 @@
+<!-- Loading State -->
+<div *ngIf="isLoading" class="product-detail-loading">
+  <div class="container">
+    <div class="detail-skeleton">
+      <div class="skeleton" style="aspect-ratio:4/5"></div>
+      <div style="display:flex;flex-direction:column;gap:1rem">
+        <div class="skeleton" style="height:32px"></div>
+        <div class="skeleton" style="height:20px;width:60%"></div>
+        <div class="skeleton" style="height:48px;width:40%"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!isLoading && product" class="product-detail-page">
+  <!-- Breadcrumb -->
+  <div class="detail-breadcrumb">
+    <div class="container">
+      <div class="breadcrumb">
+        <a routerLink="/">Home</a>
+        <span class="separator"><i class="fas fa-chevron-right"></i></span>
+        <a routerLink="/products">Products</a>
+        <span class="separator"><i class="fas fa-chevron-right"></i></span>
+        <span class="current">{{product.name}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Detail Section -->
+  <div class="container">
+    <div class="detail-grid">
+
+      <!-- ── Image Gallery ── -->
+      <div class="gallery-col">
+        <!-- Thumbnails -->
+        <div class="thumbnails">
+          <div *ngFor="let img of product.images; let i = index"
+               class="thumb" [class.active]="i === selectedImage"
+               (click)="setImage(i)">
+            <img [src]="img" [alt]="product.name">
+          </div>
+        </div>
+        <!-- Main Image -->
+        <div class="main-image" [class.zoom]="zoomActive"
+             (mouseenter)="zoomActive=true" (mouseleave)="zoomActive=false">
+          <img [src]="product.images[selectedImage]" [alt]="product.name">
+          <div class="image-badges">
+            <span *ngIf="product.badge" class="badge badge-accent">{{product.badge}}</span>
+            <span *ngIf="product.discount > 0" class="badge badge-red">-{{product.discount}}%</span>
+          </div>
+          <button class="zoom-btn"><i class="fas fa-search-plus"></i></button>
+          <!-- 360 View Link -->
+          <a routerLink="/viewer-360" class="view360-btn">
+            <i class="fas fa-rotate"></i> 360° View
+          </a>
+        </div>
+      </div>
+
+      <!-- ── Product Info ── -->
+      <div class="info-col">
+        <!-- Brand & Badges -->
+        <div class="info-top">
+          <span class="brand">{{product.brand}}</span>
+          <div class="badges-row">
+            <span *ngIf="product.isLimitedEdition" class="badge badge-red">Limited Edition</span>
+            <span *ngIf="product.isBestSeller" class="badge badge-accent">Best Seller</span>
+            <span *ngIf="product.isNewArrival" class="badge badge-primary">New Arrival</span>
+          </div>
+        </div>
+
+        <h1>{{product.name}}</h1>
+        <p class="short-desc">{{product.shortDescription}}</p>
+
+        <!-- Rating -->
+        <div class="rating-section">
+          <div class="stars">
+            <i *ngFor="let s of getStars(product.rating)" [class]="s"></i>
+          </div>
+          <span class="rating-num">{{product.rating}}</span>
+          <span class="review-cnt">({{product.reviewCount}} reviews)</span>
+          <button class="write-review" (click)="activeTab='reviews'">Write a review</button>
+        </div>
+
+        <!-- Price -->
+        <div class="price-section">
+          <span class="big-price">₹{{product.price | number}}</span>
+          <span class="orig-price" *ngIf="product.originalPrice > product.price">
+            ₹{{product.originalPrice | number}}
+          </span>
+          <span class="save-badge" *ngIf="product.discount > 0">
+            {{product.discount}}% OFF · Save ₹{{product.originalPrice - product.price | number}}
+          </span>
+        </div>
+        <p class="tax-note"><i class="fas fa-info-circle"></i> Price inclusive of all taxes. Free shipping on this item.</p>
+
+        <!-- Availability -->
+        <div class="availability" [class.out]="!product.inStock">
+          <i [class]="product.inStock ? 'fas fa-check-circle' : 'fas fa-times-circle'"></i>
+          <span *ngIf="product.inStock">In Stock — {{product.stockCount}} remaining</span>
+          <span *ngIf="!product.inStock">Out of Stock</span>
+        </div>
+
+        <!-- Key Specs -->
+        <div class="key-specs">
+          <div class="spec-item">
+            <span class="spec-l">Willow</span>
+            <span class="spec-v">{{product.specifications.willowType}}</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-l">Grade</span>
+            <span class="spec-v">{{product.specifications.grade}}</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-l">Sweet Spot</span>
+            <span class="spec-v">{{product.specifications.sweetSpot}}</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-l">Weight</span>
+            <span class="spec-v">{{product.specifications.weight}}</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-l">Player Level</span>
+            <span class="spec-v">{{product.specifications.playerLevel}}</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-l">Balance</span>
+            <span class="spec-v">{{product.specifications.balance}}</span>
+          </div>
+        </div>
+
+        <!-- Quantity & Actions -->
+        <div class="qty-section">
+          <label>Quantity</label>
+          <div class="qty-controls">
+            <button (click)="quantity = quantity > 1 ? quantity-1 : 1">
+              <i class="fas fa-minus"></i>
+            </button>
+            <span>{{quantity}}</span>
+            <button (click)="quantity = quantity + 1">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn btn-accent btn-lg" (click)="addToCart()" [disabled]="!product.inStock">
+            <i class="fas fa-cart-plus"></i>
+            {{isInCart ? 'Update Cart' : 'Add to Cart'}}
+          </button>
+          <button class="btn btn-primary btn-lg" (click)="buyNow()" [disabled]="!product.inStock">
+            <i class="fas fa-zap"></i> Buy Now
+          </button>
+        </div>
+
+        <div class="secondary-actions">
+          <button (click)="toggleWishlist()" [class.wishlisted]="isWishlisted">
+            <i [class]="isWishlisted ? 'fas fa-heart' : 'far fa-heart'"></i>
+            {{isWishlisted ? 'Wishlisted' : 'Add to Wishlist'}}
+          </button>
+          <button (click)="addToCompare()">
+            <i class="fas fa-code-compare"></i> Compare
+          </button>
+          <button (click)="shareProduct()">
+            <i class="fas fa-share-alt"></i> Share
+          </button>
+        </div>
+
+        <!-- Delivery Info -->
+        <div class="delivery-box">
+          <div class="d-item">
+            <i class="fas fa-truck"></i>
+            <div>
+              <strong>Free Delivery</strong>
+              <span>{{product.deliveryInfo}}</span>
+            </div>
+          </div>
+          <div class="d-item">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+              <strong>Warranty</strong>
+              <span>{{product.warranty}}</span>
+            </div>
+          </div>
+          <div class="d-item">
+            <i class="fas fa-rotate-left"></i>
+            <div>
+              <strong>7-Day Returns</strong>
+              <span>Hassle-free exchange & returns</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Tabs Section ── -->
+    <div class="detail-tabs">
+      <div class="tab-list">
+        <button class="tab" [class.active]="activeTab==='description'" (click)="activeTab='description'">Description</button>
+        <button class="tab" [class.active]="activeTab==='specs'" (click)="activeTab='specs'">Specifications</button>
+        <button class="tab" [class.active]="activeTab==='care'" (click)="activeTab='care'">Care & Warranty</button>
+        <button class="tab" [class.active]="activeTab==='reviews'" (click)="activeTab='reviews'">
+          Reviews ({{product.reviewCount}})
+        </button>
+        <button class="tab" [class.active]="activeTab==='faq'" (click)="activeTab='faq'">FAQs</button>
+      </div>
+
+      <!-- Description -->
+      <div class="tab-content" *ngIf="activeTab==='description'">
+        <p>{{product.description}}</p>
+        <div class="features-list">
+          <h4>Key Features</h4>
+          <ul>
+            <li *ngFor="let f of product.features">
+              <i class="fas fa-check"></i> {{f}}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Specifications -->
+      <div class="tab-content" *ngIf="activeTab==='specs'">
+        <div class="specs-table">
+          <div class="spec-row">
+            <span>Willow Type</span><span>{{product.specifications.willowType}}</span>
+          </div>
+          <div class="spec-row">
+            <span>Grade</span><span>{{product.specifications.grade}}</span>
+          </div>
+          <div class="spec-row">
+            <span>Weight</span><span>{{product.specifications.weight}}</span>
+          </div>
+          <div class="spec-row">
+            <span>Handle</span><span>{{product.specifications.handle}}</span>
+          </div>
+          <div class="spec-row">
+            <span>Handle Type</span><span>{{product.specifications.handleType}}</span>
+          </div>
+          <div class="spec-row">
+            <span>Spine Height</span><span>{{product.specifications.spine}}</span>
+          </div>
+          <div class="spec-row">
+            <span>Sweet Spot</span><span>{{product.specifications.sweetSpot}}</span>
+          </div>
+          <div class="spec-row">
+            <span>Edge Thickness</span><span>{{product.specifications.edges}}</span>
+          </div>
+          <div class="spec-row">
+            <span>Balance</span><span>{{product.specifications.balance}}</span>
+          </div>
+          <div class="spec-row">
+            <span>Bow</span><span>{{product.specifications.bow}}</span>
+          </div>
+          <div class="spec-row">
+            <span>Player Level</span><span>{{product.specifications.playerLevel}}</span>
+          </div>
+          <div class="spec-row">
+            <span>Play Style</span><span>{{product.specifications.playStyle}}</span>
+          </div>
+          <div class="spec-row">
+            <span>Surface</span><span>{{product.specifications.surface}}</span>
+          </div>
+          <div class="spec-row">
+            <span>Origin</span><span>{{product.specifications.origin}}</span>
+          </div>
+          <div class="spec-row" *ngIf="product.specifications.grainCount !== 'N/A'">
+            <span>Grain Count</span><span>{{product.specifications.grainCount}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Care -->
+      <div class="tab-content" *ngIf="activeTab==='care'">
+        <h4>Care Instructions</h4>
+        <ul class="care-list">
+          <li *ngFor="let c of product.careInstructions">
+            <i class="fas fa-circle-dot"></i> {{c}}
+          </li>
+        </ul>
+        <h4 style="margin-top:1.5rem">Warranty Information</h4>
+        <p>{{product.warranty}}</p>
+      </div>
+
+      <!-- Reviews -->
+      <div class="tab-content reviews-tab" *ngIf="activeTab==='reviews'">
+        <div class="reviews-summary">
+          <div class="avg-rating">
+            <span class="big-num">{{avgRating.toFixed(1)}}</span>
+            <div class="stars-lg">
+              <i *ngFor="let s of getStars(avgRating)" [class]="s"></i>
+            </div>
+            <span>{{product.reviewCount}} reviews</span>
+          </div>
+        </div>
+        <div class="review-list">
+          <div *ngFor="let r of reviews" class="review-card">
+            <div class="review-header">
+              <img [src]="r.userAvatar" [alt]="r.userName">
+              <div>
+                <strong>{{r.userName}}</strong>
+                <span>{{r.date | date:'mediumDate'}}</span>
+              </div>
+              <div class="r-stars">
+                <i *ngFor="let s of getStars(r.rating)" [class]="s"></i>
+              </div>
+              <span class="verified-badge" *ngIf="r.verified">
+                <i class="fas fa-check-circle"></i> Verified
+              </span>
+            </div>
+            <h4>{{r.title}}</h4>
+            <p>{{r.comment}}</p>
+            <div class="helpful">
+              <i class="fas fa-thumbs-up"></i> {{r.helpful}} found this helpful
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQs -->
+      <div class="tab-content" *ngIf="activeTab==='faq'">
+        <div *ngFor="let faq of faqs; let i = index" class="accordion-item">
+          <div class="accordion-header" [class.open]="openFaq===i" (click)="openFaq = openFaq===i ? null : i">
+            <span>{{faq.q}}</span>
+            <i class="fas fa-chevron-down icon"></i>
+          </div>
+          <div class="accordion-body" *ngIf="openFaq===i"><p>{{faq.a}}</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related Products -->
+    <div class="related-section" *ngIf="relatedProducts.length">
+      <h2>Related Products</h2>
+      <div class="product-grid">
+        <app-product-card *ngFor="let p of relatedProducts" [product]="p"></app-product-card>
+      </div>
+    </div>
+
+    <!-- Recently Viewed -->
+    <div class="related-section" *ngIf="recentlyViewed.length">
+      <div class="section-head-row">
+        <h2>Recently Viewed</h2>
+        <a routerLink="/recently-viewed" class="view-all-link">View All</a>
+      </div>
+      <div class="product-grid">
+        <app-product-card *ngFor="let p of recentlyViewed" [product]="p"></app-product-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,134 @@
+<!-- Hero -->
+<section class="about-hero">
+  <div class="about-hero-content">
+    <span class="overline">Since 1978</span>
+    <h1>Crafting Champions' Weapons<br><em>for Over 4 Decades</em></h1>
+    <p>From the willow forests of Kashmir to the pitches of Lord's — SG Cricket bats carry a legacy of uncompromising quality, precision engineering, and champion performance.</p>
+    <div class="hero-cta">
+      <a routerLink="/products" class="btn btn-accent btn-lg"><i class="fas fa-shopping-bag"></i> Shop Now</a>
+      <a routerLink="/custom-bat" class="btn btn-outline-white btn-lg"><i class="fas fa-magic"></i> Build Your Bat</a>
+    </div>
+  </div>
+  <div class="about-hero-img">
+    <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=700&q=80" alt="Cricket Bat Craftsmanship">
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="about-stats section">
+  <div class="container">
+    <div class="stats-row">
+      <div *ngFor="let s of stats" class="stat-card">
+        <i class="fas" [class]="s.icon.replace('fas ','')"></i>
+        <strong>{{s.value}}</strong>
+        <span>{{s.label}}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Story -->
+<section class="about-story section">
+  <div class="container">
+    <div class="story-layout">
+      <div class="story-images">
+        <img class="img-main" src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600&q=80" alt="Workshop">
+        <img class="img-overlay" src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=400&q=80" alt="Cricket Ground">
+      </div>
+      <div class="story-content">
+        <span class="overline">Our Story</span>
+        <h2>Born from a Passion for the Perfect Bat</h2>
+        <p>SG Cricket was founded in 1978 by master craftsman Surendra Gupta in Meerut, India — the heartland of cricket bat manufacturing. What started as a small workshop of 5 artisans has grown into a world-class manufacturing facility producing over 50,000 bats annually.</p>
+        <p>Our philosophy has remained unchanged: every bat must deliver the perfect combination of power, balance, and feel. We use Grade 1+ English Willow and hand-select Kashmir Willow to ensure only the finest wood becomes an SG bat.</p>
+        <div class="story-points">
+          <div class="sp" *ngFor="let v of values">
+            <i class="fas" [class]="v.icon.replace('fas ','')"></i>
+            <div>
+              <strong>{{v.title}}</strong>
+              <p>{{v.desc}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Timeline -->
+<section class="timeline-section section bg-alt">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="overline">Our Journey</span>
+      <h2>Milestones That Defined Us</h2>
+    </div>
+    <div class="timeline">
+      <div *ngFor="let event of timeline; let i = index" class="timeline-item" [class.right]="i % 2 !== 0">
+        <div class="timeline-dot"><i class="fas fa-cricket-bat-ball"></i></div>
+        <div class="timeline-card">
+          <span class="year">{{event.year}}</span>
+          <h4>{{event.title}}</h4>
+          <p>{{event.description}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team -->
+<section class="team-section section">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="overline">Meet the Team</span>
+      <h2>The Artisans Behind the Craft</h2>
+    </div>
+    <div class="team-grid">
+      <div *ngFor="let member of team" class="team-card">
+        <div class="team-img-wrap">
+          <img [src]="member.image" [alt]="member.name">
+          <div class="team-overlay">
+            <div class="social-links">
+              <a href="#" *ngFor="let s of member.social | keyvalue"><i class="fab" [class]="'fa-'+s.key"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-info">
+          <h4>{{member.name}}</h4>
+          <span class="role">{{member.role}}</span>
+          <p>{{member.bio}}</p>
+          <div class="expertise-tags">
+            <span class="tag">{{member.experience}} Experience</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Certifications -->
+<section class="cert-section section bg-alt">
+  <div class="container">
+    <div class="section-header text-center">
+      <span class="overline">Certifications & Awards</span>
+      <h2>Recognized by the World's Best</h2>
+    </div>
+    <div class="cert-grid">
+      <div *ngFor="let c of certifications" class="cert-card">
+        <i class="fas" [class]="c.icon.replace('fas ','')"></i>
+        <strong>{{c.title}}</strong>
+        <span>{{c.subtitle}}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="about-cta">
+  <div class="container">
+    <h2>Ready to Find Your Perfect Bat?</h2>
+    <p>Explore our collection of over 60 premium cricket bats or let us build a custom one just for you.</p>
+    <div class="cta-btns">
+      <a routerLink="/products" class="btn btn-accent btn-xl">Shop All Bats</a>
+      <a routerLink="/custom-bat" class="btn btn-outline-white btn-xl">Custom Bat Builder</a>
+    </div>
+  </div>
+</section>

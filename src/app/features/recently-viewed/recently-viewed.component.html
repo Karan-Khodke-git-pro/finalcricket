@@ -1,0 +1,29 @@
+<div class="page-banner">
+  <div class="container">
+    <div class="breadcrumb"><a routerLink="/">Home</a><span class="sep"><i class="fas fa-chevron-right"></i></span><span>Recently Viewed</span></div>
+    <h1>Recently Viewed</h1>
+    <p>Products you've checked out</p>
+  </div>
+</div>
+
+<div class="rv-page section">
+  <div class="container">
+    <ng-container *ngIf="(recentSvc.items$ | async) as items">
+      <div *ngIf="items.length === 0" class="empty-state">
+        <div class="empty-icon"><i class="fas fa-history"></i></div>
+        <h2>No Recently Viewed Products</h2>
+        <p>Start exploring our collection and your recently viewed bats will appear here.</p>
+        <a routerLink="/products" class="btn btn-accent btn-lg"><i class="fas fa-shopping-bag"></i> Browse Bats</a>
+      </div>
+      <div *ngIf="items.length > 0">
+        <div class="rv-toolbar">
+          <span>{{items.length}} recently viewed product(s)</span>
+          <button class="btn btn-outline btn-sm" (click)="clearAll()"><i class="fas fa-trash"></i> Clear History</button>
+        </div>
+        <div class="products-grid">
+          <app-product-card *ngFor="let item of items" [product]="item"></app-product-card>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

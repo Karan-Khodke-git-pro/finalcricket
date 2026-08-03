@@ -1,0 +1,79 @@
+<div class="page-banner">
+  <div class="container">
+    <div class="breadcrumb">
+      <a routerLink="/">Home</a><span class="separator"><i class="fas fa-chevron-right"></i></span>
+      <span class="current">Compare</span>
+    </div>
+    <h1>Compare Bats</h1>
+    <p>Side-by-side comparison of up to 3 cricket bats</p>
+  </div>
+</div>
+
+<div class="compare-page section">
+  <div class="container">
+    <ng-container *ngIf="(compareSvc.items$ | async) as items">
+      <!-- Empty -->
+      <div *ngIf="items.length === 0" class="empty-compare">
+        <div class="empty-icon"><i class="fas fa-balance-scale"></i></div>
+        <h2>No Products to Compare</h2>
+        <p>Add up to 3 cricket bats to compare them side by side.</p>
+        <a routerLink="/products" class="btn btn-accent btn-lg"><i class="fas fa-search"></i> Browse Bats</a>
+      </div>
+
+      <!-- Compare Table -->
+      <div *ngIf="items.length > 0" class="compare-wrap">
+        <div class="compare-toolbar">
+          <span>Comparing {{items.length}} bat(s)</span>
+          <button class="btn btn-outline btn-sm" (click)="compareSvc.clear()"><i class="fas fa-times"></i> Clear All</button>
+        </div>
+        <div class="compare-table-scroll">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th class="label-col">Product</th>
+                <th *ngFor="let p of items" class="product-col">
+                  <div class="product-header">
+                    <button class="remove-btn" (click)="remove(p.id)" title="Remove"><i class="fas fa-times"></i></button>
+                    <img [src]="p.thumbnail" [alt]="p.name">
+                    <a [routerLink]="['/products', p.slug]" class="p-name">{{p.name}}</a>
+                    <div class="p-brand">{{p.brand}}</div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="price-row">
+                <td class="label-col">Price</td>
+                <td *ngFor="let p of items">
+                  <div class="price-cell">
+                    <span class="price">₹{{p.price | number}}</span>
+                    <span *ngIf="p.originalPrice" class="original">₹{{p.originalPrice | number}}</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="label-col">Rating</td>
+                <td *ngFor="let p of items">
+                  <div class="rating-cell">
+                    <span class="stars"><i *ngFor="let _ of [1,2,3,4,5]; let i = index" class="fas fa-star" [class.inactive]="i >= p.rating"></i></span>
+                    <span>({{p.reviewCount}})</span>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngFor="let spec of specs; let even = even" [class.alt-row]="even">
+                <td class="label-col">{{spec.label}}</td>
+                <td *ngFor="let p of items">{{getSpec(p, spec)}}</td>
+              </tr>
+              <tr class="action-row">
+                <td class="label-col">Add to Cart</td>
+                <td *ngFor="let p of items">
+                  <button class="btn btn-accent btn-sm" (click)="addToCart(p)"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

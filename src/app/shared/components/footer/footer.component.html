@@ -1,0 +1,137 @@
+<footer class="footer">
+  <!-- Newsletter -->
+  <div class="footer-newsletter">
+    <div class="container">
+      <div class="newsletter-inner">
+        <div class="newsletter-text">
+          <span class="overline">Stay Updated</span>
+          <h3>Subscribe to our Newsletter</h3>
+          <p>Get exclusive offers, new arrivals, and cricket tips delivered to your inbox.</p>
+        </div>
+        <div class="newsletter-form" *ngIf="!subscribed">
+          <input type="email" [(ngModel)]="emailInput" placeholder="Enter your email address">
+          <button class="btn btn-accent" (click)="subscribe()">
+            <i class="fas fa-paper-plane"></i> Subscribe
+          </button>
+        </div>
+        <div class="newsletter-success" *ngIf="subscribed">
+          <i class="fas fa-check-circle"></i>
+          <span>Thank you for subscribing! Check your inbox for a welcome offer.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Footer -->
+  <div class="footer-main">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand -->
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <div class="logo-icon"><i class="fas fa-cricket-bat-ball"></i></div>
+            <div>
+              <div class="logo-name">SG Cricket</div>
+              <div class="logo-tagline">Crafting Champions Since 1987</div>
+            </div>
+          </div>
+          <p>India's most trusted cricket bat manufacturer. Hand-crafted excellence for every level of the game.</p>
+          <div class="socials">
+            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+          <a href="https://wa.me/919876543210" class="whatsapp-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i> Chat with us on WhatsApp
+          </a>
+        </div>
+
+        <!-- Links -->
+        <div class="footer-links">
+          <h4>Shop</h4>
+          <ul>
+            <li><a routerLink="/categories/english-willow">English Willow</a></li>
+            <li><a routerLink="/categories/kashmir-willow">Kashmir Willow</a></li>
+            <li><a routerLink="/categories/professional">Professional</a></li>
+            <li><a routerLink="/categories/junior">Junior Bats</a></li>
+            <li><a routerLink="/categories/limited-edition">Limited Edition</a></li>
+            <li><a routerLink="/categories/accessories">Accessories</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Company</h4>
+          <ul>
+            <li><a routerLink="/about">About Us</a></li>
+            <li><a routerLink="/about#manufacturing">Manufacturing</a></li>
+            <li><a routerLink="/about#team">Our Team</a></li>
+            <li><a routerLink="/custom-bat">Custom Bats</a></li>
+            <li><a routerLink="/repair">Repair & Service</a></li>
+            <li><a routerLink="/contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4>Help</h4>
+          <ul>
+            <li><a routerLink="/products">All Products</a></li>
+            <li><a routerLink="/cart">Cart</a></li>
+            <li><a routerLink="/wishlist">Wishlist</a></li>
+            <li><a routerLink="/compare">Compare Bats</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a routerLink="/contact">Support</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>123 Bat Maker Street, Jalandhar, Punjab 144001</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <a href="tel:+919876543210">+91 98765 43210</a>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:hello&#64;sgcricket.com">hello&#64;sgcricket.com</a>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-clock"></i>
+            <span>Mon–Sat: 9am – 6pm IST</span>
+          </div>
+          <div class="certifications">
+            <span class="cert-badge"><i class="fas fa-shield-alt"></i> ISO Certified</span>
+            <span class="cert-badge"><i class="fas fa-award"></i> BCCI Approved</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="bottom-inner">
+        <p>&copy; {{year}} SG Cricket. All rights reserved. Crafted with <i class="fas fa-heart"></i> in Jalandhar, India.</p>
+        <div class="bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Refund Policy</a>
+          <a href="#">Sitemap</a>
+        </div>
+        <div class="payment-icons">
+          <img src="https://cdn.jsdelivr.net/gh/atulmy/payment-icons@master/img/gpay.svg" alt="GPay">
+          <img src="https://cdn.jsdelivr.net/gh/atulmy/payment-icons@master/img/paytm.svg" alt="Paytm">
+          <img src="https://cdn.jsdelivr.net/gh/atulmy/payment-icons@master/img/visa.svg" alt="Visa">
+          <img src="https://cdn.jsdelivr.net/gh/atulmy/payment-icons@master/img/mastercard.svg" alt="Mastercard">
+          <i class="fas fa-money-bill-wave" style="color:#27AE60; font-size:1.5rem;" title="Cash on Delivery"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
