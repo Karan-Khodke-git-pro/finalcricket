@@ -92,7 +92,7 @@
               </select>
             </div>
           </div>
-          <div class="form-row-2">
+          <div class="form-row-3">
             <div class="form-group">
               <label>Handle Type</label>
               <select [(ngModel)]="form.handle">
@@ -101,19 +101,10 @@
               </select>
             </div>
             <div class="form-group">
-              <label>Sweet Spot Position</label>
-              <select [(ngModel)]="form.sweetSpot">
-                <option value="">Select Sweet Spot</option>
-                <option *ngFor="let s of sweetSpots" [value]="s">{{s}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row-3">
-            <div class="form-group">
-              <label>Spine Height</label>
-              <select [(ngModel)]="form.spine">
-                <option value="">Select Spine</option>
-                <option *ngFor="let s of spines" [value]="s">{{s}}</option>
+              <label>Scoop Design</label>
+              <select [(ngModel)]="form.scoopDesign">
+                <option value="">Select Scoop Design</option>
+                <option *ngFor="let s of scoopDesigns" [value]="s">{{s}}</option>
               </select>
             </div>
             <div class="form-group">
@@ -121,13 +112,6 @@
               <select [(ngModel)]="form.edges">
                 <option value="">Select Edges</option>
                 <option *ngFor="let e of edgeSizes" [value]="e">{{e}}</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Balance Point</label>
-              <select [(ngModel)]="form.balance">
-                <option value="">Select Balance</option>
-                <option *ngFor="let b of balances" [value]="b">{{b}}</option>
               </select>
             </div>
           </div>
@@ -139,26 +123,12 @@
             <span class="fs-num">03</span>
             <div><h3>Playing Details</h3><p>Helps us tailor the bat to your game</p></div>
           </div>
-          <div class="form-row-3">
+          <div class="form-row-2">
             <div class="form-group">
               <label>Playing Surface</label>
               <select [(ngModel)]="form.surface">
                 <option value="">Select Surface</option>
                 <option *ngFor="let s of surfaces" [value]="s">{{s}}</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Player Level <span class="req">*</span></label>
-              <select [(ngModel)]="form.playerLevel">
-                <option value="">Select Level</option>
-                <option *ngFor="let l of playerLevels" [value]="l">{{l}}</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Play Style</label>
-              <select [(ngModel)]="form.playStyle">
-                <option value="">Select Style</option>
-                <option *ngFor="let p of playStyles" [value]="p">{{p}}</option>
               </select>
             </div>
           </div>
@@ -168,32 +138,9 @@
         <div class="form-section">
           <div class="fs-header">
             <span class="fs-num">04</span>
-            <div><h3>Look &amp; Finish</h3><p>Colors, stickers and protection</p></div>
+            <div><h3>Look &amp; Finish</h3><p>Protection for your bat</p></div>
           </div>
           <div class="form-row-2">
-            <div class="form-group">
-              <label>Grip Color</label>
-              <select [(ngModel)]="form.gripColor">
-                <option value="">Select Color</option>
-                <option *ngFor="let g of gripColors" [value]="g">{{g}}</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Sticker Design</label>
-              <select [(ngModel)]="form.stickerDesign">
-                <option value="">Select Design</option>
-                <option *ngFor="let s of stickerDesigns" [value]="s">{{s}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row-2">
-            <div class="form-group">
-              <label>Edge Tape</label>
-              <select [(ngModel)]="form.edgeTape">
-                <option value="">Select Edge Tape</option>
-                <option *ngFor="let e of edgeTapes" [value]="e">{{e}}</option>
-              </select>
-            </div>
             <div class="form-group">
               <label>Toe Guard</label>
               <select [(ngModel)]="form.toeGuard">
@@ -204,47 +151,13 @@
           </div>
         </div>
 
-        <!-- 05: PERSONALIZATION -->
+        <!-- 05: ADD-ONS -->
         <div class="form-section">
           <div class="fs-header">
             <span class="fs-num">05</span>
-            <div><h3>Personalization</h3><p>Make it uniquely yours</p></div>
-          </div>
-          <div class="form-row-3">
-            <div class="form-group">
-              <label>Name on Bat</label>
-              <input type="text" [(ngModel)]="form.namePrinting" placeholder="e.g. Rahul">
-            </div>
-            <div class="form-group">
-              <label>Jersey Number</label>
-              <input type="text" [(ngModel)]="form.jerseyNumber" placeholder="e.g. 18">
-            </div>
-            <div class="form-group">
-              <label>Logo / Custom Text</label>
-              <input type="text" [(ngModel)]="form.logoText" placeholder="Club name, motto etc.">
-            </div>
-          </div>
-        </div>
-
-        <!-- 06: ADD-ONS -->
-        <div class="form-section">
-          <div class="fs-header">
-            <span class="fs-num">06</span>
             <div><h3>Add-On Services</h3><p>Optional extras for your bat</p></div>
           </div>
           <div class="addons-grid">
-            <label class="addon-card" [class.checked]="form.antiScuff">
-              <input type="checkbox" [(ngModel)]="form.antiScuff">
-              <i class="fas fa-shield-alt"></i>
-              <span>Anti-Scuff Sheet</span>
-              <small>Protects the face from scuffs</small>
-            </label>
-            <label class="addon-card" [class.checked]="form.knockingService">
-              <input type="checkbox" [(ngModel)]="form.knockingService">
-              <i class="fas fa-hammer"></i>
-              <span>Knocking Service</span>
-              <small>Pre-knocked &amp; match ready</small>
-            </label>
             <label class="addon-card" [class.checked]="form.oilingService">
               <input type="checkbox" [(ngModel)]="form.oilingService">
               <i class="fas fa-tint"></i>
@@ -254,10 +167,10 @@
           </div>
         </div>
 
-        <!-- 07: BUDGET & NOTES -->
+        <!-- 06: BUDGET & NOTES -->
         <div class="form-section">
           <div class="fs-header">
-            <span class="fs-num">07</span>
+            <span class="fs-num">06</span>
             <div><h3>Budget &amp; Special Notes</h3><p>Your budget and any special requirements</p></div>
           </div>
           <div class="form-group">
@@ -278,7 +191,7 @@
         <div class="submit-section">
           <div class="required-note">
             <i class="fas fa-info-circle"></i>
-            Fields marked <span class="req">*</span> are required (Name, Phone, Willow Type, Size, Player Level)
+            Fields marked <span class="req">*</span> are required (Name, Phone, Willow Type, Size)
           </div>
           <button class="btn-submit" [disabled]="!isFormValid" (click)="sendOnWhatsApp()">
             <i class="fab fa-whatsapp"></i> Send Order on WhatsApp
