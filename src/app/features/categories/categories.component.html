@@ -100,7 +100,7 @@
       </p>
       <div class="text-center" style="margin-top:2rem" *ngIf="products.length">
         <a routerLink="/products" [queryParams]="productQueryParams" class="btn btn-primary btn-lg">
-          View All {{selectedCategory.name}} Products <i class="fas fa-arrow-right"></i>
+          {{exploreAllLabel}} <i class="fas fa-arrow-right"></i>
         </a>
       </div>
     </div>
