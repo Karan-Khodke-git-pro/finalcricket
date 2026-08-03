@@ -48,7 +48,7 @@ export class CategoryService {
     let parentId: string | null = null;
 
     for (const slug of slugs) {
-      const match = this.getChildren(parentId).find(c => c.slug === slug);
+      const match: Category | undefined = this.getChildren(parentId).find(c => c.slug === slug);
       if (!match) break;
       trail.push(match);
       parentId = match.id;
