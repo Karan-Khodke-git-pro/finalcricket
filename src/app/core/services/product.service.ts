@@ -57,6 +57,8 @@ export class ProductService {
 
   filter(opts: {
     category?: string;
+    subCategory?: string;
+    childCategory?: string;
     minPrice?: number;
     maxPrice?: number;
     willowType?: string;
@@ -68,7 +70,16 @@ export class ProductService {
     let products = [...PRODUCTS];
 
     if (opts.category && opts.category !== 'all') {
-      products = products.filter(p => p.category === opts.category);
+      const slug = this.resolve(opts.category);
+      products = products.filter(p => p.category === slug);
+    }
+    if (opts.subCategory) {
+      const slug = this.resolve(opts.subCategory);
+      products = products.filter(p => p.subCategory === slug);
+    }
+    if (opts.childCategory) {
+      const slug = this.resolve(opts.childCategory);
+      products = products.filter(p => p.childCategory === slug);
     }
     if (opts.minPrice !== undefined) {
       products = products.filter(p => p.price >= opts.minPrice!);
