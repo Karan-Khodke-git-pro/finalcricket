@@ -5,6 +5,7 @@ export interface Product {
   brand: string;
   category: string;
   subCategory?: string;
+  childCategory?: string;
   sku: string;
   price: number;
   originalPrice: number;
@@ -80,6 +81,11 @@ export interface Category {
   icon?: string;
   color?: string;
   featured: boolean;
+  /** null for main (top level) categories */
+  parentId?: string | null;
+  /** 0 = main, 1 = sub, 2 = child, ... supports unlimited nesting */
+  level?: number;
+  hasChildren?: boolean;
 }
 
 export interface CartItem {

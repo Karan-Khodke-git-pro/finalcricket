@@ -28,7 +28,7 @@
           <div *ngFor="let cat of categories" class="filter-option">
             <label>
               <input type="radio" name="category" [value]="cat.value"
-                     [(ngModel)]="selectedCategory" (change)="applyFilters()">
+                     [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
               <span>{{cat.label}}</span>
             </label>
           </div>

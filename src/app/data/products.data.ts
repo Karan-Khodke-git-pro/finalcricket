@@ -1,4 +1,4 @@
-﻿import { Product } from '../core/models/product.model';
+import { Product } from '../core/models/product.model';
 import { BAT_IMAGES, productImages } from './images.data';
 
 // All 11 local images cycling
@@ -11,7 +11,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG RP Edition English Willow',
     slug: 'sg-rp-edition-english-willow',
     brand: 'SG Cricket',
-    category: 'english-willow',
+    category: 'popular-willow',
     subCategory: 'professional',
     sku: 'SG-RP-EW-001',
     price: 18999,
@@ -78,7 +78,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG Players Edition Pro',
     slug: 'sg-players-edition-pro',
     brand: 'SG Cricket',
-    category: 'english-willow',
+    category: 'popular-willow',
     subCategory: 'professional',
     sku: 'SG-PL-EW-002',
     price: 15999,
@@ -142,7 +142,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG Championship Gold',
     slug: 'sg-championship-gold',
     brand: 'SG Cricket',
-    category: 'english-willow',
+    category: 'popular-willow',
     subCategory: 'professional',
     sku: 'SG-CG-EW-003',
     price: 24999,
@@ -207,7 +207,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG Strokemaker Plus',
     slug: 'sg-strokemaker-plus',
     brand: 'SG Cricket',
-    category: 'english-willow',
+    category: 'popular-willow',
     subCategory: 'advanced',
     sku: 'SG-SM-EW-004',
     price: 10999,
@@ -266,7 +266,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG Scorer Edition',
     slug: 'sg-scorer-edition',
     brand: 'SG Cricket',
-    category: 'english-willow',
+    category: 'popular-willow',
     subCategory: 'intermediate',
     sku: 'SG-SC-EW-005',
     price: 7999,
@@ -324,7 +324,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG Test Special',
     slug: 'sg-test-special',
     brand: 'SG Cricket',
-    category: 'english-willow',
+    category: 'popular-willow',
     subCategory: 'professional',
     sku: 'SG-TS-EW-006',
     price: 21999,
@@ -386,7 +386,8 @@ export const PRODUCTS: Product[] = [
     slug: 'sg-kw-premium-plus',
     brand: 'SG Cricket',
     category: 'kashmir-willow',
-    subCategory: 'advanced',
+    subCategory: 'single-blade',
+    childCategory: 'full-cane',
     sku: 'SG-KW-010',
     price: 4999,
     originalPrice: 5800,
@@ -445,7 +446,8 @@ export const PRODUCTS: Product[] = [
     slug: 'sg-kw-club-pro',
     brand: 'SG Cricket',
     category: 'kashmir-willow',
-    subCategory: 'intermediate',
+    subCategory: 'single-blade',
+    childCategory: 'half-cane',
     sku: 'SG-KW-011',
     price: 3499,
     originalPrice: 4000,
@@ -503,7 +505,8 @@ export const PRODUCTS: Product[] = [
     slug: 'sg-kw-warrior',
     brand: 'SG Cricket',
     category: 'kashmir-willow',
-    subCategory: 'intermediate',
+    subCategory: 'double-blade',
+    childCategory: 'full-cane',
     sku: 'SG-KW-012',
     price: 2799,
     originalPrice: 3200,
@@ -556,7 +559,8 @@ export const PRODUCTS: Product[] = [
     slug: 'sg-kw-maximus',
     brand: 'SG Cricket',
     category: 'kashmir-willow',
-    subCategory: 'advanced',
+    subCategory: 'double-blade',
+    childCategory: 'half-cane',
     sku: 'SG-KW-013',
     price: 5999,
     originalPrice: 7000,
@@ -615,7 +619,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG Tennis Blaster Pro',
     slug: 'sg-tennis-blaster-pro',
     brand: 'SG Cricket',
-    category: 'tennis-ball',
+    category: 'tennis-balls',
     subCategory: 'professional',
     sku: 'SG-TB-020',
     price: 1999,
@@ -674,7 +678,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG Tennis Street Fighter',
     slug: 'sg-tennis-street-fighter',
     brand: 'SG Cricket',
-    category: 'tennis-ball',
+    category: 'tennis-balls',
     subCategory: 'intermediate',
     sku: 'SG-TB-021',
     price: 1299,
@@ -729,7 +733,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG Junior Champion',
     slug: 'sg-junior-champion',
     brand: 'SG Cricket',
-    category: 'junior',
+    category: 'junior-bats',
     subCategory: 'size-5',
     sku: 'SG-JR-030',
     price: 2999,
@@ -782,7 +786,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG Junior Superstar',
     slug: 'sg-junior-superstar',
     brand: 'SG Cricket',
-    category: 'junior',
+    category: 'junior-bats',
     subCategory: 'size-4',
     sku: 'SG-JR-031',
     price: 2499,
@@ -835,7 +839,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG Junior Pro EW',
     slug: 'sg-junior-pro-ew',
     brand: 'SG Cricket',
-    category: 'junior',
+    category: 'junior-bats',
     subCategory: 'size-6',
     sku: 'SG-JR-032',
     price: 5999,
@@ -890,7 +894,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG World Cup Edition 2024',
     slug: 'sg-world-cup-edition-2024',
     brand: 'SG Cricket',
-    category: 'limited-edition',
+    category: 'popular-willow',
     subCategory: 'collector',
     sku: 'SG-LE-040',
     price: 35000,
@@ -951,7 +955,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG Golden Era Vintage',
     slug: 'sg-golden-era-vintage',
     brand: 'SG Cricket',
-    category: 'limited-edition',
+    category: 'popular-willow',
     subCategory: 'collector',
     sku: 'SG-LE-041',
     price: 29999,
@@ -1013,7 +1017,7 @@ export const PRODUCTS: Product[] = [
     slug: 'sg-premium-grip-pack',
     brand: 'SG Cricket',
     category: 'accessories',
-    subCategory: 'grips',
+    subCategory: 'bat-grips',
     sku: 'SG-AC-050',
     price: 499,
     originalPrice: 600,
@@ -1066,7 +1070,7 @@ export const PRODUCTS: Product[] = [
     slug: 'sg-raw-linseed-oil',
     brand: 'SG Cricket',
     category: 'accessories',
-    subCategory: 'maintenance',
+    subCategory: 'threads',
     sku: 'SG-AC-051',
     price: 299,
     originalPrice: 350,
@@ -1119,7 +1123,7 @@ export const PRODUCTS: Product[] = [
     slug: 'sg-anti-scuff-sheet',
     brand: 'SG Cricket',
     category: 'accessories',
-    subCategory: 'maintenance',
+    subCategory: 'threads',
     sku: 'SG-AC-052',
     price: 199,
     originalPrice: 250,
@@ -1173,7 +1177,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG Opener Edition',
     slug: 'sg-opener-edition',
     brand: 'SG Cricket',
-    category: 'english-willow',
+    category: 'popular-willow',
     subCategory: 'professional',
     sku: 'SG-OP-EW-007',
     price: 19499,
@@ -1226,7 +1230,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG Power Drive',
     slug: 'sg-power-drive',
     brand: 'SG Cricket',
-    category: 'english-willow',
+    category: 'popular-willow',
     subCategory: 'professional',
     sku: 'SG-PD-EW-008',
     price: 16499,
@@ -1279,7 +1283,7 @@ export const PRODUCTS: Product[] = [
     name: 'SG Techmaster 360',
     slug: 'sg-techmaster-360',
     brand: 'SG Cricket',
-    category: 'english-willow',
+    category: 'popular-willow',
     subCategory: 'advanced',
     sku: 'SG-TM-EW-009',
     price: 12999,
@@ -1331,8 +1335,8 @@ export const PRODUCTS: Product[] = [
   /* â”€â”€â”€ MORE BATS (filling 60) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   ...Array.from({ length: 38 }, (_, i) => {
     const idx = i + 14;
-    const categories = ['english-willow', 'kashmir-willow', 'tennis-ball', 'junior', 'accessories'];
-    const cat = categories[i % 5];
+    const categories = ['popular-willow', 'kashmir-willow', 'tennis-balls', 'junior-bats', 'accessories', 'rainy-season', 'bat-covers'];
+    const cat = categories[i % 7];
     const badges: Array<'New' | 'Best Seller' | 'Hot' | 'Sale' | 'Limited' | 'Trending' | 'Premium' | 'Championship'> =
       ['New', 'Best Seller', 'Hot', 'Sale', 'Trending', 'Premium'];
     const levels: Array<'Beginner' | 'Intermediate' | 'Advanced' | 'Professional' | 'Junior'> =
@@ -1340,11 +1344,11 @@ export const PRODUCTS: Product[] = [
     const sweet: Array<'Low' | 'Mid' | 'High' | 'Extended Mid'> = ['Low', 'Mid', 'High', 'Extended Mid'];
     const handles: Array<'Oval' | 'Round' | 'Semi-Oval'> = ['Oval', 'Round', 'Semi-Oval'];
     const balance: Array<'Light' | 'Medium' | 'Heavy' | 'End Loaded' | 'Balanced'> = ['Light', 'Medium', 'Heavy', 'End Loaded', 'Balanced'];
-    const willow: Array<'English Willow' | 'Kashmir Willow'> = cat === 'english-willow' ? ['English Willow'] : ['Kashmir Willow'];
+    const willow: Array<'English Willow' | 'Kashmir Willow'> = cat === 'kashmir-willow' ? ['Kashmir Willow'] : ['English Willow'];
 
     const price = cat === 'accessories' ? 200 + idx * 50 :
-                  cat === 'tennis-ball' ? 1000 + idx * 100 :
-                  cat === 'junior' ? 2000 + idx * 200 :
+                  cat === 'tennis-balls' ? 1000 + idx * 100 :
+                  cat === 'junior-bats' ? 2000 + idx * 200 :
                   cat === 'kashmir-willow' ? 2500 + idx * 300 :
                   5000 + idx * 500;
 
@@ -1362,7 +1366,12 @@ export const PRODUCTS: Product[] = [
       slug: `${names[i % 20].toLowerCase().replace(/ /g, '-')}-${idx}`,
       brand: 'SG Cricket',
       category: cat,
-      subCategory: ['professional', 'advanced', 'intermediate'][i % 3],
+      subCategory: cat === 'kashmir-willow'
+        ? (i % 2 === 0 ? 'single-blade' : 'double-blade')
+        : cat === 'accessories'
+          ? ['batting-gloves', 'uniform', 'bat-grips', 'threads'][i % 4]
+          : undefined,
+      childCategory: cat === 'kashmir-willow' ? (i % 4 < 2 ? 'full-cane' : 'half-cane') : undefined,
       sku: `SG-${cat.substring(0, 2).toUpperCase()}-${String(idx).padStart(3, '0')}`,
       price,
       originalPrice: Math.round(price * 1.15),
@@ -1420,4 +1429,3 @@ export const getLimitedEdition = () => PRODUCTS.filter(p => p.isLimitedEdition).
 export const getProductsByCategory = (cat: string) => PRODUCTS.filter(p => p.category === cat);
 export const getProductById = (id: string) => PRODUCTS.find(p => p.id === id);
 export const getProductBySlug = (slug: string) => PRODUCTS.find(p => p.slug === slug);
-

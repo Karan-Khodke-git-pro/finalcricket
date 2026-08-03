@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PRODUCTS } from '../../data/products.data';
+import { CATEGORY_ALIASES } from '../../data/categories.data';
 import { Product } from '../models/product.model';
 
 @Injectable({ providedIn: 'root' })
@@ -15,9 +16,26 @@ export class ProductService {
   getById(id: string): Product | undefined { return PRODUCTS.find(p => p.id === id); }
   getBySlug(slug: string): Product | undefined { return PRODUCTS.find(p => p.slug === slug); }
 
+  /** Resolves legacy category slugs to their current slug. */
+  private resolve(slug: string): string { return CATEGORY_ALIASES[slug] ?? slug; }
+
   getByCategory(cat: string): Product[] {
-    return cat === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === cat);
+    if (cat === 'all') return PRODUCTS;
+    const slug = this.resolve(cat);
+    return PRODUCTS.filter(p =>
+      p.category === slug || p.subCategory === slug || p.childCategory === slug);
   }
+
+  /** Products for a category trail: main → sub → child (any depth omitted = ignored). */
+  getByCategoryPath(main: string, sub?: string, child?: string): Product[] {
+    return PRODUCTS.filter(p => {
+      if (p.category !== this.resolve(main)) return false;
+      if (sub && p.subCategory !== this.resolve(sub)) return false;
+      if (child && p.childCategory !== this.resolve(child)) return false;
+      return true;
+    });
+  }
+
 
   getRelated(product: Product, limit = 4): Product[] {
     return product.relatedIds
@@ -39,6 +57,8 @@ export class ProductService {
 
   filter(opts: {
     category?: string;
+    subCategory?: string;
+    childCategory?: string;
     minPrice?: number;
     maxPrice?: number;
     willowType?: string;
@@ -50,7 +70,16 @@ export class ProductService {
     let products = [...PRODUCTS];
 
     if (opts.category && opts.category !== 'all') {
-      products = products.filter(p => p.category === opts.category);
+      const slug = this.resolve(opts.category);
+      products = products.filter(p => p.category === slug);
+    }
+    if (opts.subCategory) {
+      const slug = this.resolve(opts.subCategory);
+      products = products.filter(p => p.subCategory === slug);
+    }
+    if (opts.childCategory) {
+      const slug = this.resolve(opts.childCategory);
+      products = products.filter(p => p.childCategory === slug);
     }
     if (opts.minPrice !== undefined) {
       products = products.filter(p => p.price >= opts.minPrice!);

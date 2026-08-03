@@ -6,6 +6,8 @@ export const routes: Routes = [
   { path: 'products/:slug', loadComponent: () => import('./features/product-detail/product-detail.component').then(m => m.ProductDetailComponent) },
   { path: 'categories', loadComponent: () => import('./features/categories/categories.component').then(m => m.CategoriesComponent) },
   { path: 'categories/:slug', loadComponent: () => import('./features/categories/categories.component').then(m => m.CategoriesComponent) },
+  { path: 'categories/:slug/:sub', loadComponent: () => import('./features/categories/categories.component').then(m => m.CategoriesComponent) },
+  { path: 'categories/:slug/:sub/:child', loadComponent: () => import('./features/categories/categories.component').then(m => m.CategoriesComponent) },
   { path: 'cart', loadComponent: () => import('./features/cart/cart.component').then(m => m.CartComponent) },
   { path: 'checkout', loadComponent: () => import('./features/checkout/checkout.component').then(m => m.CheckoutComponent) },
   { path: 'payment', loadComponent: () => import('./features/payment/payment.component').then(m => m.PaymentComponent) },

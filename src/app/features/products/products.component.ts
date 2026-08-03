@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../core/services/product.service';
 import { Product } from '../../core/models/product.model';
 import { ProductCardComponent } from '../../shared/components/product-card/product-card.component';
+import { CATEGORIES } from '../../data/categories.data';
 
 @Component({
   selector: 'app-products',
@@ -24,6 +25,8 @@ export class ProductsComponent implements OnInit {
   // Filters
   searchQuery = '';
   selectedCategory = 'all';
+  selectedSubCategory = '';
+  selectedChildCategory = '';
   selectedWillow = '';
   selectedLevel = '';
   selectedSort = 'popularity';
@@ -47,12 +50,7 @@ export class ProductsComponent implements OnInit {
 
   categories = [
     { value: 'all', label: 'All Categories' },
-    { value: 'english-willow', label: 'English Willow' },
-    { value: 'kashmir-willow', label: 'Kashmir Willow' },
-    { value: 'tennis-ball', label: 'Tennis Ball' },
-    { value: 'junior', label: 'Junior' },
-    { value: 'limited-edition', label: 'Limited Edition' },
-    { value: 'accessories', label: 'Accessories' },
+    ...CATEGORIES.map(c => ({ value: c.slug, label: c.name })),
   ];
 
   sortOptions = [
@@ -73,14 +71,25 @@ export class ProductsComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params['q']) this.searchQuery = params['q'];
       if (params['category']) this.selectedCategory = params['category'];
+      this.selectedSubCategory = params['subCategory'] || '';
+      this.selectedChildCategory = params['childCategory'] || '';
       this.applyFilters();
     });
+    this.applyFilters();
+  }
+
+  /** switching main category clears deeper category filters */
+  onCategoryChange(): void {
+    this.selectedSubCategory = '';
+    this.selectedChildCategory = '';
     this.applyFilters();
   }
 
   applyFilters(): void {
     this.filteredProducts = this.productSvc.filter({
       category: this.selectedCategory,
+      subCategory: this.selectedSubCategory || undefined,
+      childCategory: this.selectedChildCategory || undefined,
       minPrice: this.minPrice,
       maxPrice: this.priceRange,
       willowType: this.selectedWillow || undefined,
@@ -115,6 +124,8 @@ export class ProductsComponent implements OnInit {
   resetFilters(): void {
     this.searchQuery = '';
     this.selectedCategory = 'all';
+    this.selectedSubCategory = '';
+    this.selectedChildCategory = '';
     this.selectedWillow = '';
     this.selectedLevel = '';
     this.selectedSort = 'popularity';
