@@ -5,6 +5,7 @@ export interface Product {
   brand: string;
   category: string;
   subCategory?: string;
+  childCategory?: string;
   sku: string;
   price: number;
   originalPrice: number;
