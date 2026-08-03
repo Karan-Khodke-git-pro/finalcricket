@@ -89,9 +89,6 @@ export class ProductsComponent implements OnInit {
       childCategory: this.selectedChildCategory || undefined,
       minPrice: this.minPrice,
       maxPrice: this.priceRange,
-      willowType: this.selectedWillow || undefined,
-      playerLevel: this.selectedLevel || undefined,
-      inStock: this.inStockOnly ? true : undefined,
       sortBy: this.selectedSort,
     });
 
