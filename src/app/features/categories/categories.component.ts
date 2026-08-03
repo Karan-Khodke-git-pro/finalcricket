@@ -52,13 +52,17 @@ export class CategoriesComponent implements OnInit {
 
   linkFor(cat: Category): any[] { return this.categorySvc.getRouterLink(cat); }
 
-  /** query params that let the products page filter on the same trail */
+  /** the top-level (main) category of the current trail */
+  get rootCategory(): Category | null { return this.trail[0] ?? this.selectedCategory; }
+
+  /** "Explore All Bat Covers" — always the main category, not the leaf */
+  get exploreAllLabel(): string {
+    return `Explore All ${this.rootCategory?.name ?? 'Products'}`;
+  }
+
+  /** query params: show every product of the main category */
   get productQueryParams(): Record<string, string> {
-    const [main, sub, child] = this.trail;
-    const qp: Record<string, string> = {};
-    if (main) qp['category'] = main.slug;
-    if (sub) qp['subCategory'] = sub.slug;
-    if (child) qp['childCategory'] = child.slug;
-    return qp;
+    const main = this.rootCategory;
+    return main ? { category: main.slug } : {};
   }
 }
