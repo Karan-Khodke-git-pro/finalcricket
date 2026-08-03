@@ -24,6 +24,9 @@ export class CategoryLabelPipe implements PipeTransform {
     'uniform': 'Uniform',
     'bat-grips': 'Bat Grips',
     'threads': 'Threads',
+    'single-bat-cover': 'Single Bat Cover',
+    'double-bat-cover': 'Double Bat Cover',
+
   };
   transform(value: string): string {
     return this.map[value] || value;

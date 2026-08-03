@@ -73,11 +73,25 @@ export const ALL_CATEGORIES: Category[] = [
 
   /* ── 4. Bat Covers ─────────────────────────────────────── */
   {
-    id: 'cat-bc', name: 'Bat Covers', slug: 'bat-covers',
+    id: 'cat-bc',
+    name: 'Bat Covers', slug: 'bat-covers',
     description: 'Protective bat covers and sleeves to keep your bat safe during travel and storage.',
     image: ci(9), banner: ci(9), productCount: 0, icon: 'shield-halved', color: '#7F8C8D',
-    featured: true, parentId: null, level: 0, hasChildren: false,
+    featured: true, parentId: null, level: 0, hasChildren: true,
   },
+  {
+    id: 'cat-bc-sc', name: 'Single Bat Cover', slug: 'single-bat-cover',
+    description: 'Padded covers built to carry and protect a single cricket bat.',
+    image: ci(6), banner: ci(6), productCount: 0, icon: 'shield-halved', color: '#7F8C8D',
+    featured: false, parentId: 'cat-bc', level: 1, hasChildren: false,
+  },
+  {
+    id: 'cat-bc-dc', name: 'Double Bat Cover', slug: 'double-bat-cover',
+    description: 'Roomy double covers that hold two bats plus small accessories.',
+    image: ci(8), banner: ci(8), productCount: 0, icon: 'shield-halved', color: '#7F8C8D',
+    featured: false, parentId: 'cat-bc', level: 1, hasChildren: false,
+  },
+
 
   /* ── 5. Accessories ───────────────────────────────────── */
   {

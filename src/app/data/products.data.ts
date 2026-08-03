@@ -1370,7 +1370,10 @@ export const PRODUCTS: Product[] = [
         ? (i % 2 === 0 ? 'single-blade' : 'double-blade')
         : cat === 'accessories'
           ? ['batting-gloves', 'uniform', 'bat-grips', 'threads'][i % 4]
-          : undefined,
+          : cat === 'bat-covers'
+            ? (i % 2 === 0 ? 'single-bat-cover' : 'double-bat-cover')
+            : undefined,
+
       childCategory: cat === 'kashmir-willow' ? (i % 4 < 2 ? 'full-cane' : 'half-cane') : undefined,
       sku: `SG-${cat.substring(0, 2).toUpperCase()}-${String(idx).padStart(3, '0')}`,
       price,
