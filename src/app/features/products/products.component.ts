@@ -27,13 +27,10 @@ export class ProductsComponent implements OnInit {
   selectedCategory = 'all';
   selectedSubCategory = '';
   selectedChildCategory = '';
-  selectedWillow = '';
-  selectedLevel = '';
   selectedSort = 'popularity';
   minPrice = 0;
   maxPrice = 50000;
   priceRange = 50000;
-  inStockOnly = false;
   showFilters = true;
   viewMode: 'grid' | 'list' = 'grid';
   isLoading = true;
