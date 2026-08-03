@@ -59,9 +59,6 @@ export class ProductsComponent implements OnInit {
     { value: 'discount', label: 'Biggest Discount' },
   ];
 
-  levels = ['Beginner', 'Intermediate', 'Advanced', 'Professional', 'Junior'];
-  willowTypes = ['English Willow', 'Kashmir Willow'];
-
   ngOnInit(): void {
     setTimeout(() => { this.isLoading = false; }, 600);
     this.allProducts = this.productSvc.getAll();
