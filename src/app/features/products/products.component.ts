@@ -120,12 +120,9 @@ export class ProductsComponent implements OnInit {
     this.selectedCategory = 'all';
     this.selectedSubCategory = '';
     this.selectedChildCategory = '';
-    this.selectedWillow = '';
-    this.selectedLevel = '';
     this.selectedSort = 'popularity';
     this.minPrice = 0;
     this.priceRange = 50000;
-    this.inStockOnly = false;
     this.applyFilters();
   }
 
