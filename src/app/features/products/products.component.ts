@@ -78,6 +78,13 @@ export class ProductsComponent implements OnInit {
     this.applyFilters();
   }
 
+  /** switching main category clears deeper category filters */
+  onCategoryChange(): void {
+    this.selectedSubCategory = '';
+    this.selectedChildCategory = '';
+    this.applyFilters();
+  }
+
   applyFilters(): void {
     this.filteredProducts = this.productSvc.filter({
       category: this.selectedCategory,
