@@ -11,6 +11,19 @@ export class CategoryLabelPipe implements PipeTransform {
     'accessories': 'Accessories',
     'professional': 'Professional',
     'leather-ball': 'Leather Ball',
+    'popular-willow': 'Popular Willow Bat',
+    'rainy-season': 'Rainy Season Bat',
+    'bat-covers': 'Bat Covers',
+    'tennis-balls': 'Tennis Balls',
+    'junior-bats': 'Junior Bats',
+    'single-blade': 'Single Blade',
+    'double-blade': 'Double Blade',
+    'full-cane': 'Full Cane',
+    'half-cane': 'Half Cane',
+    'batting-gloves': 'Batting Gloves',
+    'uniform': 'Uniform',
+    'bat-grips': 'Bat Grips',
+    'threads': 'Threads',
   };
   transform(value: string): string {
     return this.map[value] || value;
