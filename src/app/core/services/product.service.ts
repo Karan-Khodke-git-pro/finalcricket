@@ -23,13 +23,16 @@ export class ProductService {
     if (cat === 'all') return PRODUCTS;
     const slug = this.resolve(cat);
     return PRODUCTS.filter(p =>
-      p.category === slug || p.subCategory === slug || p.childCategory === slug);
+      p.category === slug || p.subCategory === slug || p.childCategory === slug ||
+      p.crossCategories?.includes(slug));
   }
 
   /** Products for a category trail: main → sub → child (any depth omitted = ignored). */
   getByCategoryPath(main: string, sub?: string, child?: string): Product[] {
     return PRODUCTS.filter(p => {
-      if (p.category !== this.resolve(main)) return false;
+      const mainSlug = this.resolve(main);
+      const inMain = p.category === mainSlug || (!sub && p.crossCategories?.includes(mainSlug));
+      if (!inMain) return false;
       if (sub && p.subCategory !== this.resolve(sub)) return false;
       if (child && p.childCategory !== this.resolve(child)) return false;
       return true;
@@ -71,7 +74,7 @@ export class ProductService {
 
     if (opts.category && opts.category !== 'all') {
       const slug = this.resolve(opts.category);
-      products = products.filter(p => p.category === slug);
+      products = products.filter(p => p.category === slug || p.crossCategories?.includes(slug));
     }
     if (opts.subCategory) {
       const slug = this.resolve(opts.subCategory);

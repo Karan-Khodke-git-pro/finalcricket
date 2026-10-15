@@ -46,11 +46,16 @@
 
       <!-- Spec Chips -->
       <div class="specs">
-        <span class="spec-chip">{{product.specifications.willowType.split(' ')[0]}} Willow</span>
-        <span class="spec-chip">{{product.specifications.grade}}</span>
-        <span class="spec-chip" *ngIf="product.specifications.playerLevel !== 'Beginner'">
-          {{product.specifications.playerLevel}}
-        </span>
+        <ng-container *ngIf="product.chips?.length; else defaultChips">
+          <span class="spec-chip" *ngFor="let c of product.chips">{{c}}</span>
+        </ng-container>
+        <ng-template #defaultChips>
+          <span class="spec-chip">{{product.specifications.willowType.split(' ')[0]}} Willow</span>
+          <span class="spec-chip">{{product.specifications.grade}}</span>
+          <span class="spec-chip" *ngIf="product.specifications.playerLevel !== 'Beginner'">
+            {{product.specifications.playerLevel}}
+          </span>
+        </ng-template>
       </div>
 
       <!-- Rating -->

@@ -1,27 +1,4 @@
 <footer class="footer">
-  <!-- Newsletter -->
-  <div class="footer-newsletter">
-    <div class="container">
-      <div class="newsletter-inner">
-        <div class="newsletter-text">
-          <span class="overline">Stay Updated</span>
-          <h3>Subscribe to our Newsletter</h3>
-          <p>Get exclusive offers, new arrivals, and cricket tips delivered to your inbox.</p>
-        </div>
-        <div class="newsletter-form" *ngIf="!subscribed">
-          <input type="email" [(ngModel)]="emailInput" placeholder="Enter your email address">
-          <button class="btn btn-accent" (click)="subscribe()">
-            <i class="fas fa-paper-plane"></i> Subscribe
-          </button>
-        </div>
-        <div class="newsletter-success" *ngIf="subscribed">
-          <i class="fas fa-check-circle"></i>
-          <span>Thank you for subscribing! Check your inbox for a welcome offer.</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Main Footer -->
   <div class="footer-main">
     <div class="container">
@@ -55,7 +32,6 @@
             <li><a routerLink="/categories/english-willow">English Willow</a></li>
             <li><a routerLink="/categories/kashmir-willow">Kashmir Willow</a></li>
             <li><a routerLink="/categories/professional">Professional</a></li>
-            <li><a routerLink="/categories/junior">Junior Bats</a></li>
             <li><a routerLink="/categories/limited-edition">Limited Edition</a></li>
             <li><a routerLink="/categories/accessories">Accessories</a></li>
           </ul>

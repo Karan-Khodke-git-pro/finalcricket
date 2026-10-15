@@ -27,7 +27,7 @@
   .product-header {
     display: flex; flex-direction: column; align-items: center; gap: var(--space-sm);
     padding: var(--space-xl) var(--space-md); position: relative;
-    img { width: 100px; height: 120px; object-fit: cover; border-radius: var(--radius-lg); }
+    img { width: 100px; height: 120px; object-fit: contain; background: var(--surface-alt); border-radius: var(--radius-lg); }
     .p-name { font-weight: 700; font-size: 0.875rem; text-align: center; color: var(--text-primary); text-decoration: none; &:hover { color: var(--accent); } }
     .p-brand { font-size: 0.75rem; color: var(--text-muted); }
     .remove-btn { position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; border-radius: 50%; background: var(--surface-alt); border: 1px solid var(--border); color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; transition: all var(--transition-fast); &:hover { background: var(--error); color: #fff; border-color: var(--error); } }

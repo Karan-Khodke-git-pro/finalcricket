@@ -113,14 +113,28 @@
 
         <!-- Pagination -->
         <div class="pagination" *ngIf="totalPages > 1 && !isLoading">
-          <button (click)="goToPage(currentPage-1)" [disabled]="currentPage===1">
+          <button class="first-page" (click)="goToPage(1)" [disabled]="currentPage===1"
+                  aria-label="Go to first page" title="First page">
+            <i class="fas fa-angles-left"></i>
+          </button>
+          <button (click)="goToPage(currentPage-1)" [disabled]="currentPage===1"
+                  aria-label="Go to previous page" title="Previous page">
             <i class="fas fa-chevron-left"></i>
           </button>
+          <span class="pagination-status" aria-live="polite">
+            Page {{currentPage}} of {{totalPages}}
+          </span>
           <button *ngFor="let p of pageNumbers"
+                  class="page-number"
                   [class.active]="p === currentPage"
                   (click)="goToPage(p)">{{p}}</button>
-          <button (click)="goToPage(currentPage+1)" [disabled]="currentPage===totalPages">
+          <button (click)="goToPage(currentPage+1)" [disabled]="currentPage===totalPages"
+                  aria-label="Go to next page" title="Next page">
             <i class="fas fa-chevron-right"></i>
+          </button>
+          <button class="last-page" (click)="goToPage(totalPages)" [disabled]="currentPage===totalPages"
+                  aria-label="Go to last page" title="Last page">
+            <i class="fas fa-angles-right"></i>
           </button>
         </div>
       </div>

@@ -65,6 +65,13 @@ export class CheckoutComponent {
     window.open(url, '_blank');
   }
 
-  printReceipt() { window.print(); }
+  printReceipt(): void {
+    document.body.classList.add('printing-order-receipt');
+    window.addEventListener(
+      'afterprint',
+      () => document.body.classList.remove('printing-order-receipt'),
+      { once: true },
+    );
+    window.print();
+  }
 }
-

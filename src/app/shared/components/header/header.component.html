@@ -3,8 +3,8 @@
   <div class="topbar hide-mobile">
     <div class="container">
       <div class="topbar-left">
-        <span><i class="fas fa-truck"></i> Free shipping on orders above ₹999</span>
         <span><i class="fas fa-phone"></i> +91 98765 43210</span>
+        <span><i class="fas fa-receipt"></i> GSTIN: 27AYLPA6797P1ZG</span>
       </div>
       <div class="topbar-right">
         <a routerLink="/about">About Us</a>
@@ -22,9 +22,10 @@
     <div class="container">
       <!-- Logo -->
       <a class="logo" routerLink="/">
-        <div class="logo-icon"><i class="fas fa-cricket-bat-ball"></i></div>
+        <div class="logo-icon"><img src="assets/images/logo.jpg" alt="Logo"></div>
         <div class="logo-text">
-          <span class="logo-brand">karan</span>
+          <span class="logo-brand">Fit For Life</span>
+          <span class="logo-sub">(Mei Rukega Nahi)</span>
         </div>
       </a>
 
@@ -75,11 +76,11 @@
         <button class="action-btn" (click)="toggleSearch()" title="Search">
           <i class="fas fa-search"></i>
         </button>
-        <a class="action-btn" routerLink="/wishlist" title="Wishlist">
+        <a class="action-btn wishlist-action" routerLink="/wishlist" title="Wishlist">
           <i class="fas fa-heart"></i>
           <span class="badge-count" *ngIf="wishlistCount">{{wishlistCount}}</span>
         </a>
-        <a class="action-btn" routerLink="/compare" title="Compare" *ngIf="compareCount">
+        <a class="action-btn compare-action" routerLink="/compare" title="Compare" *ngIf="compareCount">
           <i class="fas fa-code-compare"></i>
           <span class="badge-count">{{compareCount}}</span>
         </a>
@@ -135,10 +136,35 @@
       <li *ngFor="let cat of categories.slice(0,6)">
         <a [routerLink]="['/categories', cat.slug]" (click)="isMobileMenuOpen=false">{{cat.name}}</a>
       </li>
+      <li><a routerLink="/cart" (click)="isMobileMenuOpen=false">Shopping Cart</a></li>
+      <li><a routerLink="/wishlist" (click)="isMobileMenuOpen=false">Wishlist</a></li>
+      <li><a routerLink="/compare" (click)="isMobileMenuOpen=false">Compare Bats</a></li>
+      <li><a routerLink="/recently-viewed" (click)="isMobileMenuOpen=false">Recently Viewed</a></li>
       <li><a routerLink="/custom-bat" (click)="isMobileMenuOpen=false">Custom Bat</a></li>
       <li><a routerLink="/about" (click)="isMobileMenuOpen=false">About Us</a></li>
       <li><a routerLink="/contact" (click)="isMobileMenuOpen=false">Contact</a></li>
       <li><a routerLink="/repair" (click)="isMobileMenuOpen=false">Repair & Service</a></li>
     </ul>
   </div>
+
+  <nav class="mobile-tab-bar hide-desktop" aria-label="Quick navigation">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+      <i class="fas fa-house"></i><span>Home</span>
+    </a>
+    <a routerLink="/products" routerLinkActive="active">
+      <i class="fas fa-store"></i><span>Shop</span>
+    </a>
+    <a routerLink="/wishlist" routerLinkActive="active">
+      <i class="fas fa-heart"></i><span>Saved</span>
+      <span class="tab-count" *ngIf="wishlistCount">{{wishlistCount}}</span>
+    </a>
+    <a routerLink="/cart" routerLinkActive="active">
+      <i class="fas fa-bag-shopping"></i><span>Cart</span>
+      <span class="tab-count" *ngIf="cartCount">{{cartCount}}</span>
+    </a>
+    <button type="button" [class.active]="isMobileMenuOpen" (click)="toggleMobileMenu()">
+      <i class="fas" [class.fa-bars]="!isMobileMenuOpen" [class.fa-xmark]="isMobileMenuOpen"></i>
+      <span>More</span>
+    </button>
+  </nav>
 </header>

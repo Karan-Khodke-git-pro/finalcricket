@@ -3,6 +3,11 @@ import { BAT_IMAGES } from './images.data';
 
 const ci = (n: number) => BAT_IMAGES[n % BAT_IMAGES.length];
 
+// Real FFL product photography, used wherever a category matches our actual catalogue.
+const kwSingle = (n: string) => `assets/images/kw-single-fc/${n}.jpeg`;
+const kwDouble = (n: string) => `assets/images/kw-double-fc/${n}.jpeg`;
+const batCover = (n: string) => `assets/images/bat-covers/${n}.jpeg`;
+
 /**
  * Full category tree (unlimited nesting via parentId).
  * level 0 = main category, level 1 = sub category, level 2 = child category, ...
@@ -14,56 +19,48 @@ export const ALL_CATEGORIES: Category[] = [
     name: 'Kashmir Willow Bat',
     slug: 'kashmir-willow',
     description: 'High-quality Kashmir Willow bats available in single and double blade, with full cane and half cane handle options.',
-    image: ci(1), banner: ci(1),
+    image: kwDouble('kw-db-fc-royal-orchid'), banner: kwDouble('kw-db-fc-royal-orchid'),
     productCount: 0, icon: 'leaf', color: '#27AE60',
     featured: true, parentId: null, level: 0, hasChildren: true,
   },
   {
     id: 'cat-kw-sb', name: 'Single Blade', slug: 'single-blade',
     description: 'Classic single blade Kashmir Willow construction — balanced pickup and reliable performance.',
-    image: ci(2), banner: ci(2), productCount: 0, icon: 'layer-group', color: '#27AE60',
+    image: kwSingle('kw-sb-fc-vk-rainbow'), banner: kwSingle('kw-sb-fc-vk-rainbow'), productCount: 0, icon: 'layer-group', color: '#27AE60',
     featured: false, parentId: 'cat-kw', level: 1, hasChildren: true,
   },
   {
     id: 'cat-kw-sb-fc', name: 'Full Cane', slug: 'full-cane',
     description: 'Single blade bats with full cane handle for maximum shock absorption.',
-    image: ci(3), banner: ci(3), productCount: 0, icon: 'grip-lines', color: '#27AE60',
+    image: kwSingle('kw-sb-fc-premium-camo'), banner: kwSingle('kw-sb-fc-premium-camo'), productCount: 0, icon: 'grip-lines', color: '#27AE60',
     featured: false, parentId: 'cat-kw-sb', level: 2, hasChildren: false,
   },
   {
     id: 'cat-kw-sb-hc', name: 'Half Cane', slug: 'half-cane',
     description: 'Single blade bats with half cane handle — lighter pickup, great control.',
-    image: ci(4), banner: ci(4), productCount: 0, icon: 'grip-lines', color: '#27AE60',
+    image: kwSingle('kw-sb-fc-blackout-verde'), banner: kwSingle('kw-sb-fc-blackout-verde'), productCount: 0, icon: 'grip-lines', color: '#27AE60',
     featured: false, parentId: 'cat-kw-sb', level: 2, hasChildren: false,
   },
   {
     id: 'cat-kw-db', name: 'Double Blade', slug: 'double-blade',
     description: 'Double blade Kashmir Willow bats built for extra power and durability.',
-    image: ci(5), banner: ci(5), productCount: 0, icon: 'layer-group', color: '#27AE60',
+    image: kwDouble('kw-db-fc-emerald-fade'), banner: kwDouble('kw-db-fc-emerald-fade'), productCount: 0, icon: 'layer-group', color: '#27AE60',
     featured: false, parentId: 'cat-kw', level: 1, hasChildren: true,
   },
   {
     id: 'cat-kw-db-fc', name: 'Full Cane', slug: 'full-cane',
     description: 'Double blade bats with full cane handle for powerful stroke play.',
-    image: ci(6), banner: ci(6), productCount: 0, icon: 'grip-lines', color: '#27AE60',
+    image: kwDouble('kw-db-fc-fire-splash'), banner: kwDouble('kw-db-fc-fire-splash'), productCount: 0, icon: 'grip-lines', color: '#27AE60',
     featured: false, parentId: 'cat-kw-db', level: 2, hasChildren: false,
   },
   {
     id: 'cat-kw-db-hc', name: 'Half Cane', slug: 'half-cane',
     description: 'Double blade bats with half cane handle — power with easier pickup.',
-    image: ci(7), banner: ci(7), productCount: 0, icon: 'grip-lines', color: '#27AE60',
+    image: kwDouble('kw-db-fc-amber-flute'), banner: kwDouble('kw-db-fc-amber-flute'), productCount: 0, icon: 'grip-lines', color: '#27AE60',
     featured: false, parentId: 'cat-kw-db', level: 2, hasChildren: false,
   },
 
-  /* ── 2. Popular Willow Bat ─────────────────────────────── */
-  {
-    id: 'cat-pw', name: 'Popular Willow Bat', slug: 'popular-willow',
-    description: 'Popular willow bats offering great performance at an accessible price for everyday cricket.',
-    image: ci(0), banner: ci(0), productCount: 0, icon: 'star', color: '#C9A84C',
-    featured: true, parentId: null, level: 0, hasChildren: false,
-  },
-
-  /* ── 3. Rainy Season Bat ───────────────────────────────── */
+  /* ── 2. Rainy Season Bat ───────────────────────────────── */
   {
     id: 'cat-rs', name: 'Rainy Season Bat', slug: 'rainy-season',
     description: 'Moisture-resistant bats built to handle damp conditions and wet-weather cricket.',
@@ -71,29 +68,29 @@ export const ALL_CATEGORIES: Category[] = [
     featured: true, parentId: null, level: 0, hasChildren: false,
   },
 
-  /* ── 4. Bat Covers ─────────────────────────────────────── */
+  /* ── 3. Bat Covers ─────────────────────────────────────── */
   {
     id: 'cat-bc',
     name: 'Bat Covers', slug: 'bat-covers',
     description: 'Protective bat covers and sleeves to keep your bat safe during travel and storage.',
-    image: ci(9), banner: ci(9), productCount: 0, icon: 'shield-halved', color: '#7F8C8D',
+    image: batCover('ffl-kit-bag-front'), banner: batCover('ffl-kit-bag-front'), productCount: 0, icon: 'shield-halved', color: '#7F8C8D',
     featured: true, parentId: null, level: 0, hasChildren: true,
   },
   {
     id: 'cat-bc-sc', name: 'Single Bat Cover', slug: 'single-bat-cover',
     description: 'Padded covers built to carry and protect a single cricket bat.',
-    image: ci(6), banner: ci(6), productCount: 0, icon: 'shield-halved', color: '#7F8C8D',
+    image: batCover('ffl-kit-bag-front'), banner: batCover('ffl-kit-bag-front'), productCount: 0, icon: 'shield-halved', color: '#7F8C8D',
     featured: false, parentId: 'cat-bc', level: 1, hasChildren: false,
   },
   {
     id: 'cat-bc-dc', name: 'Double Bat Cover', slug: 'double-bat-cover',
     description: 'Roomy double covers that hold two bats plus small accessories.',
-    image: ci(8), banner: ci(8), productCount: 0, icon: 'shield-halved', color: '#7F8C8D',
+    image: batCover('ffl-kit-bag-back'), banner: batCover('ffl-kit-bag-back'), productCount: 0, icon: 'shield-halved', color: '#7F8C8D',
     featured: false, parentId: 'cat-bc', level: 1, hasChildren: false,
   },
 
 
-  /* ── 5. Accessories ───────────────────────────────────── */
+  /* ── 4. Accessories ───────────────────────────────────── */
   {
     id: 'cat-acc', name: 'Accessories', slug: 'accessories',
     description: 'Complete your cricket kit — gloves, uniforms, grips and threads.',
@@ -103,43 +100,34 @@ export const ALL_CATEGORIES: Category[] = [
   {
     id: 'cat-acc-gl', name: 'Batting Gloves', slug: 'batting-gloves',
     description: 'Batting gloves with premium padding and breathable comfort.',
-    image: ci(2), banner: ci(2), productCount: 0, icon: 'mitten', color: '#7F8C8D',
+    image: 'assets/images/batting-gloves/batting-gloves.jpg',
+    banner: 'assets/images/batting-gloves/batting-gloves.jpg',
+    productCount: 0, icon: 'mitten', color: '#7F8C8D',
     featured: false, parentId: 'cat-acc', level: 1, hasChildren: false,
   },
   {
     id: 'cat-acc-un', name: 'Uniform', slug: 'uniform',
-    description: 'Match and practice cricket uniforms in durable, quick-dry fabric.',
+    description: 'Browse 279 cricket shirt designs. Every design is available for ₹599.',
     image: ci(3), banner: ci(3), productCount: 0, icon: 'shirt', color: '#7F8C8D',
-    featured: false, parentId: 'cat-acc', level: 1, hasChildren: false,
+    featured: true, parentId: null, level: 0, hasChildren: false,
   },
   {
     id: 'cat-acc-gr', name: 'Bat Grips', slug: 'bat-grips',
-    description: 'Replacement bat grips in a range of textures and colours.',
-    image: ci(4), banner: ci(4), productCount: 0, icon: 'grip', color: '#7F8C8D',
+    description: 'Colorful ribbed cricket bat grip sleeves. Each grip is ₹160.',
+    image: 'assets/images/bat-grips/colorful-ribbed-grip-sleeves.png',
+    banner: 'assets/images/bat-grips/colorful-ribbed-grip-sleeves.png',
+    productCount: 0, icon: 'grip', color: '#7F8C8D',
     featured: false, parentId: 'cat-acc', level: 1, hasChildren: false,
   },
   {
     id: 'cat-acc-th', name: 'Threads', slug: 'threads',
-    description: 'Binding threads and repair twine for bat maintenance.',
-    image: ci(5), banner: ci(5), productCount: 0, icon: 'scissors', color: '#7F8C8D',
+    description: 'Cricket bat binding threads in four colors. Each spool is ₹250.',
+    image: 'assets/images/threads/five-cricket-bats-green-turf.png',
+    banner: 'assets/images/threads/five-cricket-bats-green-turf.png',
+    productCount: 0, icon: 'scissors', color: '#7F8C8D',
     featured: false, parentId: 'cat-acc', level: 1, hasChildren: false,
   },
 
-  /* ── 6. Tennis Balls ──────────────────────────────────── */
-  {
-    id: 'cat-tb', name: 'Tennis Balls', slug: 'tennis-balls',
-    description: 'Cricket tennis balls and tape balls for street, gully and club cricket.',
-    image: ci(3), banner: ci(3), productCount: 0, icon: 'baseball', color: '#27AE60',
-    featured: true, parentId: null, level: 0, hasChildren: false,
-  },
-
-  /* ── 7. Junior Bats ───────────────────────────────────── */
-  {
-    id: 'cat-jr', name: 'Junior Bats', slug: 'junior-bats',
-    description: 'Age-appropriate bats for young cricketers, from Size 1 up to Harrow.',
-    image: ci(5), banner: ci(5), productCount: 0, icon: 'child', color: '#2980B9',
-    featured: true, parentId: null, level: 0, hasChildren: false,
-  },
 ];
 
 /** Main (top level) categories — used by header, home and category listing. */
@@ -147,15 +135,8 @@ export const CATEGORIES: Category[] = ALL_CATEGORIES.filter(c => c.level === 0);
 
 /** Legacy slugs kept working so old links / bookmarks don't break. */
 export const CATEGORY_ALIASES: Record<string, string> = {
-  'english-willow': 'popular-willow',
   'kashmir-willow-bat': 'kashmir-willow',
-  'popular-willow-bat': 'popular-willow',
   'rainy-season-bat': 'rainy-season',
-  'tennis-ball': 'tennis-balls',
-  'junior': 'junior-bats',
-  'limited-edition': 'popular-willow',
-  'professional': 'popular-willow',
-  'leather-ball': 'popular-willow',
   'grips': 'bat-grips',
   'maintenance': 'threads',
 };

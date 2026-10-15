@@ -41,18 +41,12 @@
           </div>
         </div>
         <!-- Main Image -->
-        <div class="main-image" [class.zoom]="zoomActive"
-             (mouseenter)="zoomActive=true" (mouseleave)="zoomActive=false">
+        <div class="main-image">
           <img [src]="product.images[selectedImage]" [alt]="product.name">
           <div class="image-badges">
             <span *ngIf="product.badge" class="badge badge-accent">{{product.badge}}</span>
             <span *ngIf="product.discount > 0" class="badge badge-red">-{{product.discount}}%</span>
           </div>
-          <button class="zoom-btn"><i class="fas fa-search-plus"></i></button>
-          <!-- 360 View Link -->
-          <a routerLink="/viewer-360" class="view360-btn">
-            <i class="fas fa-rotate"></i> 360° View
-          </a>
         </div>
       </div>
 
@@ -101,32 +95,40 @@
         </div>
 
         <!-- Key Specs -->
-        <div class="key-specs">
-          <div class="spec-item">
-            <span class="spec-l">Willow</span>
-            <span class="spec-v">{{product.specifications.willowType}}</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-l">Grade</span>
-            <span class="spec-v">{{product.specifications.grade}}</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-l">Sweet Spot</span>
-            <span class="spec-v">{{product.specifications.sweetSpot}}</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-l">Weight</span>
-            <span class="spec-v">{{product.specifications.weight}}</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-l">Player Level</span>
-            <span class="spec-v">{{product.specifications.playerLevel}}</span>
-          </div>
-          <div class="spec-item">
-            <span class="spec-l">Balance</span>
-            <span class="spec-v">{{product.specifications.balance}}</span>
+        <div class="key-specs" *ngIf="product.details; else cricketBatKeySpecs">
+          <div class="spec-item" *ngFor="let detail of product.details">
+            <span class="spec-l">{{detail.label}}</span>
+            <span class="spec-v">{{detail.value}}</span>
           </div>
         </div>
+        <ng-template #cricketBatKeySpecs>
+          <div class="key-specs">
+            <div class="spec-item">
+              <span class="spec-l">Willow</span>
+              <span class="spec-v">{{product.specifications.willowType}}</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-l">Grade</span>
+              <span class="spec-v">{{product.specifications.grade}}</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-l">Sweet Spot</span>
+              <span class="spec-v">{{product.specifications.sweetSpot}}</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-l">Weight</span>
+              <span class="spec-v">{{product.specifications.weight}}</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-l">Player Level</span>
+              <span class="spec-v">{{product.specifications.playerLevel}}</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-l">Balance</span>
+              <span class="spec-v">{{product.specifications.balance}}</span>
+            </div>
+          </div>
+        </ng-template>
 
         <!-- Quantity & Actions -->
         <div class="qty-section">
@@ -174,7 +176,7 @@
               <span>{{product.deliveryInfo}}</span>
             </div>
           </div>
-          <div class="d-item">
+          <div class="d-item" *ngIf="product.warranty">
             <i class="fas fa-shield-alt"></i>
             <div>
               <strong>Warranty</strong>
@@ -196,8 +198,8 @@
     <div class="detail-tabs">
       <div class="tab-list">
         <button class="tab" [class.active]="activeTab==='description'" (click)="activeTab='description'">Description</button>
-        <button class="tab" [class.active]="activeTab==='specs'" (click)="activeTab='specs'">Specifications</button>
-        <button class="tab" [class.active]="activeTab==='care'" (click)="activeTab='care'">Care & Warranty</button>
+        <button class="tab" [class.active]="activeTab==='specs'" (click)="activeTab='specs'">{{product.details ? 'Details' : 'Specifications'}}</button>
+        <button class="tab" *ngIf="product.careInstructions.length || product.warranty" [class.active]="activeTab==='care'" (click)="activeTab='care'">Care & Warranty</button>
         <button class="tab" [class.active]="activeTab==='reviews'" (click)="activeTab='reviews'">
           Reviews ({{product.reviewCount}})
         </button>
@@ -218,7 +220,14 @@
       </div>
 
       <!-- Specifications -->
-      <div class="tab-content" *ngIf="activeTab==='specs'">
+      <div class="tab-content" *ngIf="activeTab==='specs' && product.details">
+        <div class="specs-table">
+          <div class="spec-row" *ngFor="let detail of product.details">
+            <span>{{detail.label}}</span><span>{{detail.value}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="tab-content" *ngIf="activeTab==='specs' && !product.details">
         <div class="specs-table">
           <div class="spec-row">
             <span>Willow Type</span><span>{{product.specifications.willowType}}</span>
@@ -247,7 +256,7 @@
           <div class="spec-row">
             <span>Balance</span><span>{{product.specifications.balance}}</span>
           </div>
-          <div class="spec-row">
+          <div class="spec-row" *ngIf="product.specifications.bow">
             <span>Bow</span><span>{{product.specifications.bow}}</span>
           </div>
           <div class="spec-row">
@@ -259,7 +268,7 @@
           <div class="spec-row">
             <span>Surface</span><span>{{product.specifications.surface}}</span>
           </div>
-          <div class="spec-row">
+          <div class="spec-row" *ngIf="product.specifications.origin">
             <span>Origin</span><span>{{product.specifications.origin}}</span>
           </div>
           <div class="spec-row" *ngIf="product.specifications.grainCount !== 'N/A'">
@@ -269,15 +278,19 @@
       </div>
 
       <!-- Care -->
-      <div class="tab-content" *ngIf="activeTab==='care'">
-        <h4>Care Instructions</h4>
-        <ul class="care-list">
-          <li *ngFor="let c of product.careInstructions">
-            <i class="fas fa-circle-dot"></i> {{c}}
-          </li>
-        </ul>
-        <h4 style="margin-top:1.5rem">Warranty Information</h4>
-        <p>{{product.warranty}}</p>
+      <div class="tab-content" *ngIf="activeTab==='care' && (product.careInstructions.length || product.warranty)">
+        <ng-container *ngIf="product.careInstructions.length">
+          <h4>Care Instructions</h4>
+          <ul class="care-list">
+            <li *ngFor="let c of product.careInstructions">
+              <i class="fas fa-circle-dot"></i> {{c}}
+            </li>
+          </ul>
+        </ng-container>
+        <ng-container *ngIf="product.warranty">
+          <h4 style="margin-top:1.5rem">Warranty Information</h4>
+          <p>{{product.warranty}}</p>
+        </ng-container>
       </div>
 
       <!-- Reviews -->

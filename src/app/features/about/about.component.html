@@ -1,16 +1,16 @@
 <!-- Hero -->
 <section class="about-hero">
   <div class="about-hero-content">
-    <span class="overline">Since 1978</span>
-    <h1>Crafting Champions' Weapons<br><em>for Over 4 Decades</em></h1>
-    <p>From the willow forests of Kashmir to the pitches of Lord's — SG Cricket bats carry a legacy of uncompromising quality, precision engineering, and champion performance.</p>
+    <span class="overline">Our Story</span>
+    <h1>From a Kid With a Bat<br><em>to Bats for Thousands</em></h1>
+    <p>What started as an 8-year-old's love for cricket turned into championship trophies, and eventually into a mission: make quality tennis cricket bats that every player can actually afford.</p>
     <div class="hero-cta">
       <a routerLink="/products" class="btn btn-accent btn-lg"><i class="fas fa-shopping-bag"></i> Shop Now</a>
       <a routerLink="/custom-bat" class="btn btn-outline-white btn-lg"><i class="fas fa-magic"></i> Build Your Bat</a>
     </div>
   </div>
   <div class="about-hero-img">
-    <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=700&q=80" alt="Cricket Bat Craftsmanship">
+    <img src="assets/images/about/trophy-collection.jpeg" alt="Trophies won on the tennis cricket circuit">
   </div>
 </section>
 
@@ -32,14 +32,14 @@
   <div class="container">
     <div class="story-layout">
       <div class="story-images">
-        <img class="img-main" src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600&q=80" alt="Workshop">
-        <img class="img-overlay" src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=400&q=80" alt="Cricket Ground">
+        <img class="img-main" src="assets/images/about/team-champions-group.jpeg" alt="Championship winning team">
+        <img class="img-overlay" src="assets/images/about/trophy-handover.jpeg" alt="Trophy presentation">
       </div>
       <div class="story-content">
-        <span class="overline">Our Story</span>
-        <h2>Born from a Passion for the Perfect Bat</h2>
-        <p>SG Cricket was founded in 1978 by master craftsman Surendra Gupta in Meerut, India — the heartland of cricket bat manufacturing. What started as a small workshop of 5 artisans has grown into a world-class manufacturing facility producing over 50,000 bats annually.</p>
-        <p>Our philosophy has remained unchanged: every bat must deliver the perfect combination of power, balance, and feel. We use Grade 1+ English Willow and hand-select Kashmir Willow to ensure only the finest wood becomes an SG bat.</p>
+        <span class="overline">How It Started</span>
+        <h2>A Passion That Turned Into a Purpose</h2>
+        <p>The story begins at the age of 8, when cricket first became more than just a game. By 9, a spot on the school's Under-9 team confirmed it — there was no looking back from here. At 12, a move into tennis-ball cricket set the course for everything that followed, bringing with it years of tournaments, championships, and trophies.</p>
+        <p>Being a cricketer meant seeing the game from the other side too — watching talented tennis cricketers hold back because branded bats were priced out of reach. So in 2022, that lifelong passion became a profession: the first batch of just 10 tennis cricket bats, made by hand. Today, thousands of bats later, the same idea still drives every bat we make — quality that performs, priced so any cricketer can own one.</p>
         <div class="story-points">
           <div class="sp" *ngFor="let v of values">
             <i class="fas" [class]="v.icon.replace('fas ','')"></i>
@@ -58,8 +58,8 @@
 <section class="timeline-section section bg-alt">
   <div class="container">
     <div class="section-header text-center">
-      <span class="overline">Our Journey</span>
-      <h2>Milestones That Defined Us</h2>
+      <span class="overline">The Journey</span>
+      <h2>From First Bat to 5,000 Bats Sold</h2>
     </div>
     <div class="timeline">
       <div *ngFor="let event of timeline; let i = index" class="timeline-item" [class.right]="i % 2 !== 0">
@@ -74,48 +74,34 @@
   </div>
 </section>
 
-<!-- Team -->
-<section class="team-section section">
+<!-- Achievements -->
+<section class="achievements-section section">
   <div class="container">
     <div class="section-header text-center">
-      <span class="overline">Meet the Team</span>
-      <h2>The Artisans Behind the Craft</h2>
+      <span class="overline">On the Field</span>
+      <h2>Championships That Shaped the Craft</h2>
     </div>
-    <div class="team-grid">
-      <div *ngFor="let member of team" class="team-card">
-        <div class="team-img-wrap">
-          <img [src]="member.image" [alt]="member.name">
-          <div class="team-overlay">
-            <div class="social-links">
-              <a href="#" *ngFor="let s of member.social | keyvalue"><i class="fab" [class]="'fa-'+s.key"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="team-info">
-          <h4>{{member.name}}</h4>
-          <span class="role">{{member.role}}</span>
-          <p>{{member.bio}}</p>
-          <div class="expertise-tags">
-            <span class="tag">{{member.experience}} Experience</span>
-          </div>
+    <div class="achievements-grid">
+      <div *ngFor="let a of achievements" class="achievement-card">
+        <img [src]="a.image" [alt]="a.title">
+        <div class="achievement-overlay">
+          <strong>{{a.title}}</strong>
+          <span>{{a.subtitle}}</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Certifications -->
-<section class="cert-section section bg-alt">
+<!-- Founder's Note -->
+<section class="founder-note section bg-alt">
   <div class="container">
-    <div class="section-header text-center">
-      <span class="overline">Certifications & Awards</span>
-      <h2>Recognized by the World's Best</h2>
-    </div>
-    <div class="cert-grid">
-      <div *ngFor="let c of certifications" class="cert-card">
-        <i class="fas" [class]="c.icon.replace('fas ','')"></i>
-        <strong>{{c.title}}</strong>
-        <span>{{c.subtitle}}</span>
+    <div class="founder-layout">
+      <img src="assets/images/about/spl-champion-2018.jpeg" alt="Founder with championship trophy">
+      <div class="founder-quote">
+        <i class="fas fa-quote-left quote-icon"></i>
+        <p>"Cricket has been part of me since I was 8 years old. When I saw how many tennis cricketers couldn't afford a good bat because of high brand prices, I decided to start making my own — beginning with just 10 bats in 2022. Today, thousands of cricketers across India play with a bat I made, and that means more to me than any trophy on the shelf."</p>
+        <span class="founder-name">— Karan, Founder</span>
       </div>
     </div>
   </div>
@@ -125,7 +111,7 @@
 <section class="about-cta">
   <div class="container">
     <h2>Ready to Find Your Perfect Bat?</h2>
-    <p>Explore our collection of over 60 premium cricket bats or let us build a custom one just for you.</p>
+    <p>Explore our collection of premium tennis cricket bats or let us build a custom one just for you.</p>
     <div class="cta-btns">
       <a routerLink="/products" class="btn btn-accent btn-xl">Shop All Bats</a>
       <a routerLink="/custom-bat" class="btn btn-outline-white btn-xl">Custom Bat Builder</a>

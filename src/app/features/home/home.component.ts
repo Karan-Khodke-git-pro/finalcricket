@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../core/services/product.service';
+import { CategoryService } from '../../core/services/category.service';
 import { Product } from '../../core/models/product.model';
-import { CATEGORIES } from '../../data/categories.data';
 import { TESTIMONIALS, STATS, FAQS } from '../../data/app.data';
 import { ProductCardComponent } from '../../shared/components/product-card/product-card.component';
 import { BAT_IMAGES } from '../../data/images.data';
@@ -18,6 +18,7 @@ import { BAT_IMAGES } from '../../data/images.data';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private productSvc = inject(ProductService);
+  private categorySvc = inject(CategoryService);
 
   featured: Product[] = [];
   bestSellers: Product[] = [];
@@ -25,49 +26,53 @@ export class HomeComponent implements OnInit, OnDestroy {
   trending: Product[] = [];
   limitedEdition: Product[] = [];
 
-  categories = CATEGORIES;
+  categories = this.categorySvc.getMainCategories();
+  batGallery = this.categorySvc.getAll()
+    .filter(category => category.id.startsWith('cat-kw') || category.slug === 'rainy-season');
   testimonials = TESTIMONIALS;
   stats = STATS;
-  faqs = FAQS.slice(0, 6);
+  faqs = FAQS.slice(0, 3);
 
   // Hero Carousel
   heroSlides = [
     {
-      badge: 'New 2024 Collection',
-      title: 'Craft Your\nLegacy',
-      subtitle: 'Premium English Willow bats for champions. Crafted by master artisans since 1987.',
-      cta1: 'Shop Now',
-      cta2: 'View Collection',
-      link1: '/products',
-      link2: '/categories/english-willow',
-      image: BAT_IMAGES[0],
-      accent: 'English Willow'
+       theme: 'aqua',
+       eyebrow: 'Kashmir Willow · Player Edition',
+       title: 'Mei Rukega',
+       highlight: 'Nahi.',
+       subtitle: "Hand-finished aqua splash bats, built for players who don't stop.",
+       cta: 'Shop the Bat',
+       link: '/products',
+       image: 'assets/images/ffl/bats-aqua.jpg',
+       tag: '01 / Aqua Splash'
     },
     {
-      badge: 'Limited Edition',
-      title: 'World Cup\n2024 Bat',
-      subtitle: 'Only 100 pieces worldwide. Signed, numbered, and destined for greatness.',
-      cta1: 'Get Yours',
-      cta2: 'Learn More',
-      link1: '/categories/limited-edition',
-      link2: '/products/sg-world-cup-edition-2024',
-      image: BAT_IMAGES[7],
-      accent: 'Limited Edition'
+       theme: 'blaze',
+       eyebrow: 'The Blaze Series',
+       title: 'Built to',
+       highlight: 'Blaze.',
+       subtitle: 'Sunset fade, hand-thrown splatter. No two bats are ever the same.',
+       cta: 'Explore Blaze',
+       link: '/products',
+       image: 'assets/images/ffl/bats-blaze.jpg',
+       tag: '02 / Blaze Fade'
     },
-    // {
-    //   badge: 'Best Value',
-    //   title: '\nKashmir Willow',
-    //   subtitle: 'Professional quality at an unbeatable price. Perfect for every level of play.',
-    //   cta1: 'Explore Range',
-    //   cta2: 'Best Sellers',
-    //   link1: '/categories/kashmir-willow',
-    //   link2: '/products',
-    //   image: BAT_IMAGES[4],
-    //   accent: 'Kashmir Willow'
-    // }
+     {
+       theme: 'volt',
+       eyebrow: 'Tennis-Ball Series',
+       title: 'Loud bat.',
+       highlight: 'Louder shots.',
+       subtitle: 'Neon volt finish, lightweight and made for tape-ball and gully cricket.',
+       cta: 'Shop Volt',
+       link: '/products',
+       image: 'assets/images/ffl/bats-volt.jpg',
+       tag: '03 / Volt Neon'
+     },
   ];
   currentHeroSlide = 0;
+  heroScale = 1;
   private heroInterval?: ReturnType<typeof setInterval>;
+  private heroPointerStart: number | null = null;
 
   // Promo Carousel
   promos = [
@@ -80,20 +85,29 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   openFaq: number | null = null;
 
-  // Gallery
-  gallery = BAT_IMAGES.slice(0, 6);
-
   // Testimonial carousel
   currentTestimonial = 0;
 
   ngOnInit(): void {
+    this.updateHeroScale();
     this.featured = this.productSvc.getFeatured();
     this.bestSellers = this.productSvc.getBestSellers();
     this.newArrivals = this.productSvc.getNewArrivals();
     this.trending = this.productSvc.getTrending();
     this.limitedEdition = this.productSvc.getLimitedEdition();
 
-    this.heroInterval = setInterval(() => this.nextHeroSlide(), 5000);
+    const savedSlide = Number(localStorage.getItem('ffl-slide'));
+    if (Number.isInteger(savedSlide) && savedSlide >= 0 && savedSlide < this.heroSlides.length) {
+      this.currentHeroSlide = savedSlide;
+    }
+
+    this.restartHeroInterval();
+  }
+
+  @HostListener('window:resize')
+  updateHeroScale(): void {
+    const availableHeight = Math.max(window.innerHeight - 72, 0);
+    this.heroScale = Math.min(window.innerWidth / 2000, availableHeight / 1000);
   }
 
   ngOnDestroy(): void {
@@ -102,13 +116,54 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   nextHeroSlide(): void {
     this.currentHeroSlide = (this.currentHeroSlide + 1) % this.heroSlides.length;
+    this.persistHeroSlide();
+    this.restartHeroInterval();
   }
 
   prevHeroSlide(): void {
     this.currentHeroSlide = (this.currentHeroSlide - 1 + this.heroSlides.length) % this.heroSlides.length;
+    this.persistHeroSlide();
+    this.restartHeroInterval();
   }
 
-  setHeroSlide(i: number): void { this.currentHeroSlide = i; }
+  setHeroSlide(i: number): void {
+    this.currentHeroSlide = i;
+    this.persistHeroSlide();
+    this.restartHeroInterval();
+  }
+
+  pauseHero(): void {
+    if (this.heroInterval) clearInterval(this.heroInterval);
+  }
+
+  restartHeroInterval(): void {
+    this.pauseHero();
+    this.heroInterval = setInterval(() => {
+      this.currentHeroSlide = (this.currentHeroSlide + 1) % this.heroSlides.length;
+      this.persistHeroSlide();
+    }, 6000);
+  }
+
+  startHeroTouch(event: TouchEvent): void {
+    this.heroPointerStart = event.touches[0]?.clientX ?? null;
+  }
+
+  endHeroTouch(event: TouchEvent): void {
+    if (this.heroPointerStart === null) return;
+    const delta = (event.changedTouches[0]?.clientX ?? this.heroPointerStart) - this.heroPointerStart;
+    if (Math.abs(delta) > 40) delta < 0 ? this.nextHeroSlide() : this.prevHeroSlide();
+    this.heroPointerStart = null;
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleHeroKey(event: KeyboardEvent): void {
+    if (event.key === 'ArrowRight') this.nextHeroSlide();
+    if (event.key === 'ArrowLeft') this.prevHeroSlide();
+  }
+
+  private persistHeroSlide(): void {
+    localStorage.setItem('ffl-slide', String(this.currentHeroSlide));
+  }
 
   get activeProducts(): Product[] {
     const map: Record<string, Product[]> = {
@@ -131,13 +186,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
+  getInitials(name: string): string {
+    return name
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map(part => part.charAt(0).toUpperCase())
+      .join('');
+  }
+
   whyChooseUs = [
-    { icon: 'fa-award', title: '37+ Years Experience', desc: 'Over three decades of masterful bat craftsmanship.' },
     { icon: 'fa-leaf', title: 'Premium Willow', desc: 'Sourced from the finest willow groves in England and Kashmir.' },
     { icon: 'fa-hands', title: 'Hand-Crafted', desc: 'Every bat is individually crafted by our expert artisans.' },
     { icon: 'fa-shield-alt', title: 'Quality Guarantee', desc: 'Rigorous quality testing on every single bat we produce.' },
-    { icon: 'fa-truck', title: 'Free Shipping', desc: 'Complimentary shipping on all orders above ₹999.' },
-    { icon: 'fa-rotate-left', title: '7-Day Returns', desc: 'Hassle-free returns and exchanges within 7 days.' },
+    { icon: 'fa-bullseye', title: 'Made for Your Game', desc: 'Find the right bat for your playing style, from practice to match day.' },
+    { icon: 'fa-gauge-high', title: 'Performance Focused', desc: 'Designed for powerful shots, balance, and confident stroke play.' },
+    { icon: 'fa-shield-halved', title: 'Built to Last', desc: 'Reliable craftsmanship and durable materials for season after season.' },
   ];
 
   manufacturingSteps = [

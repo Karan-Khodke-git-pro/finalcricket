@@ -35,7 +35,6 @@ export class ProductDetailComponent implements OnInit {
   quantity = 1;
   activeTab = 'description';
   isLoading = true;
-  zoomActive = false;
 
   get isWishlisted() { return this.product ? this.wishlistSvc.has(this.product.id) : false; }
   get isInCart() { return this.product ? this.cartSvc.isInCart(this.product.id) : false; }

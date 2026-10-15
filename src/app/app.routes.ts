@@ -18,7 +18,6 @@ export const routes: Routes = [
   { path: 'contact', loadComponent: () => import('./features/contact/contact.component').then(m => m.ContactComponent) },
   { path: 'repair', loadComponent: () => import('./features/repair/repair.component').then(m => m.RepairComponent) },
   { path: 'custom-bat', loadComponent: () => import('./features/custom-bat/custom-bat.component').then(m => m.CustomBatComponent) },
-  { path: 'viewer-360', loadComponent: () => import('./features/viewer-360/viewer-360.component').then(m => m.Viewer360Component) },
   { path: 'recently-viewed', loadComponent: () => import('./features/recently-viewed/recently-viewed.component').then(m => m.RecentlyViewedComponent) },
   { path: '**', redirectTo: '' },
 ];

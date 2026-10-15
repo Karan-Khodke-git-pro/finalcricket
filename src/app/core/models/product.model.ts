@@ -6,6 +6,8 @@ export interface Product {
   category: string;
   subCategory?: string;
   childCategory?: string;
+  /** Extra top-level categories this product should also be listed under (e.g. Rainy Season). */
+  crossCategories?: string[];
   sku: string;
   price: number;
   originalPrice: number;
@@ -22,6 +24,9 @@ export interface Product {
   shortDescription: string;
   features: string[];
   specifications: ProductSpecification;
+  details?: { label: string; value: string }[];
+  /** Overrides the auto-generated product-card spec chips when set. */
+  chips?: string[];
   careInstructions: string[];
   warranty: string;
   deliveryInfo: string;
@@ -40,7 +45,7 @@ export interface ProductSpecification {
   grade: string;
   weight: string;
   handle: string;
-  handleType: 'Oval' | 'Round' | 'Semi-Oval';
+  handleType: string;
   spine: string;
   sweetSpot: 'Low' | 'Mid' | 'High' | 'Extended Mid';
   edges: string;

@@ -7,8 +7,8 @@
   transition: all var(--transition);
 
   .topbar {
-    background: var(--primary);
-    color: rgba(255,255,255,0.85);
+    background: linear-gradient(90deg, #0B3C7A 0%, #1A7FA8 50%, #2E9E4F 100%);
+    color: rgba(255,255,255,0.9);
     font-size: 0.78rem;
     padding: 6px 0;
 
@@ -54,7 +54,8 @@
     background: rgba(255,255,255,0.95);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(90deg, #0B3C7A, #1A7FA8, #2E9E4F) 1;
     transition: all var(--transition);
 
     [data-theme="dark"] & {
@@ -66,7 +67,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
+      height: 80px;
       gap: var(--space-xl);
     }
   }
@@ -86,12 +87,9 @@
     flex-shrink: 0;
 
     .logo-icon {
-      width: 40px; height: 40px;
-      background: var(--gradient-primary);
-      border-radius: var(--radius-lg);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--accent);
-      font-size: 1.1rem;
+      height: 68px;
+      display: flex; align-items: center;
+      img { height: 100%; width: auto; mix-blend-mode: multiply; }
     }
 
     .logo-text {
@@ -103,16 +101,21 @@
         font-family: var(--font-heading);
         font-size: 1.3rem;
         font-weight: 900;
-        color: var(--text-primary);
-        letter-spacing: -0.02em;
+        color: #000;
+        font-size: 1.45rem;
+        font-weight: 900;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
       }
 
       .logo-sub {
-        font-size: 0.65rem;
-        font-weight: 600;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: var(--accent);
+        margin-top: 4px;
+        font-family: var(--font-heading);
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: #000;
+        white-space: nowrap;
       }
     }
   }
@@ -143,12 +146,14 @@
         i { font-size: 0.65rem; transition: transform var(--transition-fast); }
 
         &:hover {
-          color: var(--accent);
-          background: rgba(201,168,76,0.08);
+          color: #0B3C7A;
+          background: rgba(26,127,168,0.08);
         }
 
         &.active {
-          color: var(--accent);
+          color: #fff;
+          background: linear-gradient(90deg, #0B3C7A, #1A7FA8 60%, #2E9E4F);
+          box-shadow: 0 4px 12px rgba(26,127,168,0.3);
         }
       }
 
@@ -254,15 +259,15 @@
     text-decoration: none;
 
     &:hover {
-      background: rgba(201,168,76,0.1);
-      color: var(--accent);
+      background: rgba(26,127,168,0.1);
+      color: #1A7FA8;
     }
 
     .badge-count {
       position: absolute;
       top: 2px; right: 2px;
-      background: var(--accent);
-      color: var(--primary-dark);
+      background: #E8C97A;
+      color: #06101F;
       font-size: 0.6rem;
       font-weight: 800;
       min-width: 16px; height: 16px;
@@ -273,10 +278,11 @@
   }
 
   .cart-btn {
-    background: var(--primary);
-    color: var(--accent);
-    border: 2px solid var(--primary);
-    &:hover { background: var(--accent); color: var(--primary); border-color: var(--accent); }
+    background: linear-gradient(135deg, #0B3C7A, #2E9E4F);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 12px rgba(26,127,168,0.35);
+    &:hover { transform: translateY(-2px); color: #fff; background: linear-gradient(135deg, #1A7FA8, #2E9E4F); }
   }
 
   .mobile-theme {
@@ -428,7 +434,11 @@
     overflow: hidden;
     transition: max-height 0.4s ease;
 
-    &.open { max-height: 600px; }
+    &.open {
+      max-height: calc(100dvh - var(--header-h) - 60px - env(safe-area-inset-bottom));
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
 
     ul {
       padding: var(--space-md);
@@ -447,6 +457,7 @@
           color: var(--accent);
         }
       }
+
     }
   }
 }

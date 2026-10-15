@@ -68,7 +68,8 @@ export class CategoryService {
     if (!trail.length) return [];
     const [main, sub, child] = trail;
     return PRODUCTS.filter(p => {
-      if (p.category !== main.slug) return false;
+      const inMain = p.category === main.slug || (!sub && p.crossCategories?.includes(main.slug));
+      if (!inMain) return false;
       if (sub && p.subCategory !== sub.slug) return false;
       if (child && p.childCategory !== child.slug) return false;
       return true;
@@ -88,6 +89,8 @@ export class CategoryService {
 
   /** Keeps productCount + hasChildren in sync with the product data. */
   private refreshCounts(): void {
+    const usedImages = new Set<string>();
+
     for (const cat of this.all) {
       const trail: Category[] = [];
       let node: Category | undefined = cat;
@@ -95,8 +98,40 @@ export class CategoryService {
         trail.unshift(node);
         node = node.parentId ? this.all.find(c => c.id === node!.parentId) : undefined;
       }
-      cat.productCount = this.getProducts(trail).length;
+      const products = this.getProducts(trail);
+      cat.productCount = products.length;
       cat.hasChildren = this.getChildren(cat.id).length > 0;
+
+      if (cat.slug === 'threads' || cat.slug === 'batting-gloves' || cat.slug === 'bat-grips') {
+        usedImages.add(cat.image);
+        cat.banner = cat.image;
+        continue;
+      }
+
+      const selectUnusedProductImage = (matchingProducts: Product[]): string | undefined => {
+        const orderedProducts = cat.slug === 'rainy-season' && matchingProducts.length > 1
+          ? [...matchingProducts.slice(1), matchingProducts[0]]
+          : matchingProducts;
+        const candidates = [
+          ...orderedProducts.map(product => product.thumbnail),
+          ...orderedProducts.flatMap(product => product.images),
+        ];
+        return candidates.find(image => image && !usedImages.has(image));
+      };
+
+      let image = selectUnusedProductImage(products);
+      for (let depth = trail.length - 1; !image && depth > 0; depth--) {
+        image = selectUnusedProductImage(this.getProducts(trail.slice(0, depth)));
+      }
+
+      if (!image && !usedImages.has(cat.image)) {
+        image = cat.image;
+      }
+      if (image) {
+        usedImages.add(image);
+        cat.image = image;
+        cat.banner = image;
+      }
     }
   }
 }
