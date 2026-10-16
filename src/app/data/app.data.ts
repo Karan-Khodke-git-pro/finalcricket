@@ -213,7 +213,7 @@ export const FAQS: FAQ[] = [
   {
     id: 'f012',
     question: 'How do I track my order?',
-    answer: 'Once your order is shipped, you\'ll receive an email and SMS with the tracking number and courier details. You can track your order through the courier website or by contacting our customer support at +91 98765 43210.',
+    answer: 'Once your order is shipped, you\'ll receive an email and SMS with the tracking number and courier details. You can track your order through the courier website or by contacting our customer support at +91 86690 49802.',
     category: 'shipping',
   },
 ];
@@ -303,10 +303,10 @@ export const REPAIR_TYPES = [
 ];
 
 export const STATS = [
-  { label: 'Bats Crafted', value: '5,00,000+', icon: 'fa-cricket-bat-ball' },
-  { label: 'Years of Excellence', value: '37+', icon: 'fa-calendar' },
-  { label: 'Happy Customers', value: '2,50,000+', icon: 'fa-heart' },
-  { label: 'Countries Served', value: '28+', icon: 'fa-globe' },
+  { label: 'Bats Crafted', value: '5,000+', icon: 'fa-cricket-bat-ball' },
+  { label: 'Years of Excellence', value: '4+', icon: 'fa-calendar' },
+  { label: 'Happy Customers', value: '7,000+', icon: 'fa-heart' },
+  { label: 'Cities Served', value: '11+', icon: 'fa-globe' },
   { label: 'Awards Won', value: '45+', icon: 'fa-trophy' },
   { label: 'Master Craftsmen', value: '150+', icon: 'fa-users' },
 ];

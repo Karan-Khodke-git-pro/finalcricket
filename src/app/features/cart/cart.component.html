@@ -65,23 +65,6 @@
             <i class="fas fa-trash"></i> Clear Cart
           </button>
         </div>
-
-        <!-- Coupon -->
-        <div class="coupon-section">
-          <h4><i class="fas fa-tag"></i> Have a coupon?</h4>
-          <div class="coupon-form">
-            <input type="text" [(ngModel)]="couponCode" placeholder="Enter coupon code" (keyup.enter)="applyCoupon()">
-            <button class="btn btn-primary" (click)="applyCoupon()">Apply</button>
-          </div>
-          <p class="coupon-success" *ngIf="couponSuccess"><i class="fas fa-check-circle"></i> {{couponSuccess}}</p>
-          <p class="coupon-error" *ngIf="couponError"><i class="fas fa-times-circle"></i> {{couponError}}</p>
-          <div class="promo-codes">
-            <span>Try: </span>
-            <button (click)="couponCode='WELCOME10'; applyCoupon()">WELCOME10</button>
-            <button (click)="couponCode='SG500'; applyCoupon()">SG500</button>
-            <button (click)="couponCode='CRICKET15'; applyCoupon()">CRICKET15</button>
-          </div>
-        </div>
       </div>
 
       <!-- Summary -->

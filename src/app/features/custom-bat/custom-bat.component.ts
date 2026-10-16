@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class CustomBatComponent {
 
-  readonly WHATSAPP_NUMBER = '918830425162'; // ← Replace with actual number
+  readonly WHATSAPP_NUMBER = '918669049802'; // ← Replace with actual number
 
   submitted = false;
 

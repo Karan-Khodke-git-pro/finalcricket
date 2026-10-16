@@ -15,7 +15,7 @@ export class CheckoutComponent {
   cartSvc = inject(CartService);
 
   // ── WHATSAPP NUMBER OF YOUR CLIENT (seller) ──────────────────
-  readonly WHATSAPP_NUMBER = '918830425162'; // ← Replace with actual number
+  readonly WHATSAPP_NUMBER = '918669049802'; // ← Replace with actual number
 
   step = 1;
   showReceipt = false;

@@ -20,9 +20,9 @@ export class ContactComponent {
   subjects = ['Product Enquiry', 'Order Status', 'Repair & Service', 'Custom Bat', 'Wholesale/Bulk Order', 'Feedback', 'Other'];
 
   infoCards = [
-    { icon: 'fas fa-map-marker-alt', title: 'Visit Us', lines: ['SG Cricket Manufacturing Hub,', 'Plot 12, Industrial Estate,', 'Meerut, UP 250001, India'] },
-    { icon: 'fas fa-phone', title: 'Call Us', lines: ['+91 98765 43210', '+91 98765 43211', 'Mon-Sat: 9am-7pm IST'] },
-    { icon: 'fas fa-envelope', title: 'Email Us', lines: ['support@sgcricket.in', 'wholesale@sgcricket.in', 'Replies within 24 hrs'] },
+    { icon: 'fas fa-map-marker-alt', title: 'Visit Us', lines: ['Block No. 25, Opposite Vijay Medicals,', 'Near Om Driving School, Swami Kripaldas Marg,', 'Jaripatka, Nagpur (Maharashtra) - 440014'] },
+    { icon: 'fas fa-phone', title: 'Call Us', lines: ['+91 86690 49802', 'Mon-Sun: 9am-9pm IST'] },
+    { icon: 'fas fa-envelope', title: 'Email Us', lines: ['fitforlifenagpur@gmail.com', 'Replies within 24 hrs'] },
     { icon: 'fas fa-clock', title: 'Working Hours', lines: ['Mon-Fri: 9:00am – 7:00pm', 'Saturday: 10:00am – 5:00pm', 'Sunday: Closed'] },
   ];
 

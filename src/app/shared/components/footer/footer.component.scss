@@ -30,26 +30,7 @@
       gap: var(--space-sm);
       margin-bottom: var(--space-lg);
 
-      .logo-icon {
-        width: 44px; height: 44px;
-        background: var(--gradient-accent);
-        border-radius: var(--radius-lg);
-        display: flex; align-items: center; justify-content: center;
-        color: var(--primary-dark);
-        font-size: 1.2rem;
-      }
-      .logo-name {
-        font-family: var(--font-heading);
-        font-size: 1.2rem;
-        font-weight: 800;
-        color: #fff;
-      }
-      .logo-tagline {
-        font-size: 0.65rem;
-        color: var(--accent);
-        font-weight: 600;
-        letter-spacing: 0.05em;
-      }
+      img { height: 64px; width: auto; max-width: 100%; }
     }
 
     p {
