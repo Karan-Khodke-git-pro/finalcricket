@@ -141,26 +141,21 @@ export class CheckoutComponent {
     return new File([doc.output('blob')], `Order-${this.orderId}.pdf`, { type: 'application/pdf' });
   }
 
+  // Always opens the chat with our number directly, with the order details as the message
   sendOnWhatsApp() {
     const msg = this.buildMessage();
-    const file = this.buildPdf();
     const nav = navigator as any;
+    const file = this.buildPdf();
 
-    // Phones: share sheet with the PDF attached (customer picks WhatsApp)
-    if (nav.canShare?.({ files: [file] })) {
-      nav.share({ files: [file], text: msg }).catch((e: any) => { if (e?.name !== 'AbortError') this.openChat(msg, file); });
-      return;
+    // Computer: also save the order PDF so it can be attached in the chat.
+    // (Phones can't attach it automatically; the full order is in the message text.)
+    if (!nav.canShare?.({ files: [file] })) {
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(file);
+      link.download = file.name;
+      link.click();
+      URL.revokeObjectURL(link.href);
     }
-    this.openChat(msg, file);
-  }
-
-  // Desktop / fallback: save the PDF and open the chat with the message ready
-  private openChat(msg: string, file: File) {
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(file);
-    link.download = file.name;
-    link.click();
-    URL.revokeObjectURL(link.href);
     window.open(`https://wa.me/${this.WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   }
 
