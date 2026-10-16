@@ -207,7 +207,7 @@ export const FAQS: FAQ[] = [
   {
     id: 'f011',
     question: 'Is GST included in the displayed prices?',
-    answer: 'All prices displayed on our website are inclusive of GST (18% for cricket equipment). The GST breakdown is provided at checkout for your reference. A proper GST invoice is provided with every purchase for businesses seeking input tax credit.',
+    answer: 'All prices displayed on our website are inclusive of GST (5%). The GST breakdown is provided at checkout for your reference. A proper GST invoice is provided with every purchase for businesses seeking input tax credit.',
     category: 'payment',
   },
   {

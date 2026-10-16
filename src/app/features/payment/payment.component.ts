@@ -33,7 +33,7 @@ export class PaymentComponent {
   selectedBank = '';
 
   get total() {
-    return this.cartSvc.subtotal + this.cartSvc.gst - this.cartSvc.discount;
+    return this.cartSvc.subtotal - this.cartSvc.discount;
   }
 
   pay(): void {

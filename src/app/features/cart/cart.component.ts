@@ -41,5 +41,5 @@ export class CartComponent implements OnInit {
   get gst() { return this.cartSvc.gst; }
   get discount() { return this.cartSvc.discount; }
   get shipping() { return this.cartSvc.shippingCost; }
-  get total() { return this.subtotal + this.gst - this.discount + this.shipping; }
+  get total() { return this.subtotal - this.discount + this.shipping; }
 }

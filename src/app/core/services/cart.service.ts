@@ -12,8 +12,8 @@ export class CartService {
   get items(): CartItem[] { return this._items$.value; }
   get count(): number { return this.items.reduce((s, i) => s + i.quantity, 0); }
   get subtotal(): number { return this.items.reduce((s, i) => s + i.product.price * i.quantity, 0); }
-  get gst(): number { return Math.round(this.subtotal * 0.18); }
-  get total(): number { return this.subtotal + this.gst - this._discount$.value + this._shipping$.value; }
+  get gst(): number { return Math.round(this.subtotal - this.subtotal / 1.05); } // 5% GST already included in prices
+  get total(): number { return this.subtotal - this._discount$.value + this._shipping$.value; }
 
   private _discount$ = new BehaviorSubject<number>(0);
   private _shipping$ = new BehaviorSubject<number>(0);
