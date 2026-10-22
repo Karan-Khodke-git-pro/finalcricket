@@ -11,14 +11,20 @@
          [class.aqua]="slide.theme === 'aqua'"
          [class.blaze]="slide.theme === 'blaze'"
          [class.volt]="slide.theme === 'volt'">
-      <div class="hero-canvas" [style.--hero-scale]="heroScale">
-        <div class="hero-ghost">FFL</div>
-        <div class="hero-splat" *ngIf="slide.theme === 'volt'"></div>
-        <div
-  class="hero-photo"
-  [style.background-image]="'url(' + slide.image + ')'"
-></div>
-        <div class="hero-brand">
+     <div class="hero-canvas" [style.--hero-scale]="heroScale">
+  <div class="hero-ghost">FFL</div>
+
+  <div
+    class="hero-splat"
+    *ngIf="slide.theme === 'volt'"
+  ></div>
+
+  <div
+    class="hero-photo"
+    [style.backgroundImage]="'url(' + slide.image + ')'"
+  ></div>
+
+  <div class="hero-brand">
           <span class="hero-brand-mark">FFL</span>
           <span class="hero-brand-name">Fit For Life<small>FFL by Karan</small></span>
         </div>
