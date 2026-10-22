@@ -28,9 +28,9 @@ export class ProductsComponent implements OnInit {
   selectedSubCategory = '';
   selectedChildCategory = '';
   selectedSort = 'popularity';
-  minPrice = 0;
-  maxPrice = 50000;
-  priceRange = 50000;
+  minPrice = 100;
+  maxPrice = 4500;
+  priceRange = 4500;
   showFilters = true;
   viewMode: 'grid' | 'list' = 'grid';
   isLoading = true;
@@ -118,8 +118,9 @@ export class ProductsComponent implements OnInit {
     this.selectedSubCategory = '';
     this.selectedChildCategory = '';
     this.selectedSort = 'popularity';
-    this.minPrice = 0;
-    this.priceRange = 50000;
+    this.minPrice = 100;
+    this.maxPrice = 4500;
+    this.priceRange = 4500;
     this.applyFilters();
   }
 
