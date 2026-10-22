@@ -67,8 +67,8 @@ export class HomeComponent implements OnInit, OnDestroy {
        link: '/products',
        image: 'assets/images/ffl/bats-volt.jpg',
        tag: '03 / Volt Neon'
-     },
-  ];
+      },
+   ];
   currentHeroSlide = 0;
   heroScale = 1;
   private heroInterval?: ReturnType<typeof setInterval>;
